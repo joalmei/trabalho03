@@ -20,7 +20,7 @@ package Game;
 
 // Obs: O nome da classe foi alterado de Character para GameCharacter para evitar ambiguidades
 // em relação à classe Character do package java.lang, default da linguagem!
-public class GameCharacter{
+public class GameCharacter implements Attacker {
 
 	/*** Constantes definidas! ***/
 
@@ -55,6 +55,7 @@ public class GameCharacter{
 	private Inventory myitems;
 	private int HP;
 	private int MP;
+	private Pet pet;
 
 	/*  Atributos protegidos  */
 	protected int XP;
@@ -83,11 +84,16 @@ public class GameCharacter{
 		this.speed = 1;
 		this.dexterity = 1;
 		this.constitution = 1;
+		this.pet = null;
 	}
 
 
 	
 	/***  Setters  ***/
+
+	public void setPet (Pet pet) {
+		this.pet = pet;
+	}
 	
 	/*  Atualiza o valor da força do GameCharacter  */
 	public void setStrenght(int strenght)
@@ -337,6 +343,10 @@ public class GameCharacter{
 			attak *= 2;
 
 		charac.addHP(-1*attak);
+
+		if (this.pet != null) {
+			this.pet.attack(charac);
+		}
 	}
 
 

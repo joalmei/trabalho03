@@ -133,29 +133,48 @@ public class Team
 	}
 	
 	/*  Retira um personagem do time, dada uma posição do vetor de personagens  */
-	public void removeChar (int poschar)
+	public boolean removeChar (int poschar)
 	{
-		if (poschar >= characters.size() || poschar < 0)
-			return;
+		if (poschar >= characters.size() || poschar < 0) 
+			return false;
 
 		characters.remove(poschar);
+		return true;
 	}
 
 	/*  Retira um personagem do time, dado o personagem a ser retirado  */
-	public void removeChar (GameCharacter remchar)
+	public boolean removeChar (GameCharacter remchar)
 	{
 		if (remchar == null)
-			return;
+			return false;
 
 		//remove o primeiro jogador que encontrar, de mesmo nome
 		for (int i = 0; i < characters.size(); ++i)
 		{
-			if (remchar.getName() == characters.get(i).getName())
+			if (remchar.getName().equals(characters.get(i).getName()))
 			{
-				removeChar(i);
-				i = characters.size();
+				return removeChar(i);
+				// i = characters.size();
 			}
 		}
+
+		return false;
+	}
+
+	/*  Retira um personagem do time, dado o nome do personagem a ser retirado  */
+	public boolean removeChar (String namechar)
+	{
+		//remove o primeiro jogador que encontrar, de mesmo nome
+		for (int i = 0; i < characters.size(); ++i)
+		{
+			if (namechar.equals(characters.get(i).getName()))
+			{
+				return removeChar(i);
+				// i = characters.size();
+			}
+		}
+
+		return false;
 	}
 
 	/*  Busca um personagem no time, dado seu nome, e retorna-o  */
@@ -163,7 +182,7 @@ public class Team
 	{
 		for (int i = 0; i < characters.size(); ++i)
 		{
-			if (characters.get(i).getName() == name)
+			if (characters.get(i).getName().equals(name))
 				return characters.get(i);
 		}
 
