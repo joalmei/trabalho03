@@ -223,7 +223,6 @@ public class Game
 			return false;
 
 		return teams.get(tmId).removeChar(ch);
-
 	}
 
 	public boolean teamBattle (String team1, String team2)
