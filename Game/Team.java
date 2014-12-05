@@ -148,17 +148,7 @@ public class Team
 		if (remchar == null)
 			return false;
 
-		//remove o primeiro jogador que encontrar, de mesmo nome
-		for (int i = 0; i < characters.size(); ++i)
-		{
-			if (remchar.getName().equals(characters.get(i).getName()))
-			{
-				return removeChar(i);
-				// i = characters.size();
-			}
-		}
-
-		return false;
+		return removeChar (remchar.getName());
 	}
 
 	/*  Retira um personagem do time, dado o nome do personagem a ser retirado  */
@@ -170,7 +160,6 @@ public class Team
 			if (namechar.equals(characters.get(i).getName()))
 			{
 				return removeChar(i);
-				// i = characters.size();
 			}
 		}
 
