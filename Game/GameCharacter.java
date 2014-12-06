@@ -79,6 +79,7 @@ public class GameCharacter implements Attacker {
 		myitems.setSpaces(10);
 		
 		this.HP = 100;
+		this.MP = 100;
 		this.XP = 1;
 		this.strenght = 1;
 		this.speed = 1;
