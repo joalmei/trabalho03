@@ -9,6 +9,7 @@ public class Game
 	private ArrayList<GameCharacter> chars;
 	private ArrayList<Item> items;
 	private ArrayList<Team> teams;
+	private ArrayList<Pet> pets;
 
 
 	public Game()
@@ -16,6 +17,8 @@ public class Game
 		chars = new ArrayList<GameCharacter> ();
 		items = new ArrayList<Item> ();
 		teams = new ArrayList<Team> ();
+		pets = new ArrayList<Pet> ();
+
 		/* Dados padrões, para teste preliminar do programa */
 
 		/*  Criação dos Items de teste  */
@@ -403,6 +406,25 @@ public class Game
 		items.remove(it);
 	}
 
+	public void winPet (String ch, String pet) throws IllegalArgumentException
+	{
+		int c = charID(ch);
+		int p = petID(pet);
+
+		winPet(c, pet);
+	}
+
+	public void winPet (int ch, int pet) throws IllegalArgumentException
+	{
+		if (ch < 0 || ch >= chars.size())
+			throw new IllegalArgumentException("Personagem não está no Jogo");
+		if (pet < 0 || pet >= pets.size())
+			throw new IllegalArgumentException("Pet não está no Jogo");
+		
+		chars.get(ch).winPet(pets.get(pet));
+		pets.remove(pet);
+	}
+
 
 	public void useItem (String ch, String it) throws IllegalArgumentException
 	{
@@ -444,6 +466,14 @@ public class Game
 		items.add(it);
 	}
 
+	public void addPet (Pet pet)
+	{
+		if (pet == null)
+			return;
+
+		pets.add(pet);
+	}
+
 
 	public void removeChar (String ch) throws IllegalArgumentException
 	{
@@ -478,8 +508,6 @@ public class Game
 		teams.remove(tm);
 	}
 
-
-
 	public void removeItem (String it) throws IllegalArgumentException
 	{
 		int i = itemId(it);
@@ -495,7 +523,21 @@ public class Game
 		items.remove(it);
 	}
 
+	public void removePet (String pet) throws IllegalArgumentException
+	{
+		int p = petID(pet);
 
+		removePet(p);
+	}
+
+	public void removePet (int pet) throws IllegalArgumentException
+	{
+		if (pet < 0 && pet >= pets.size())
+			throw new IllegalArgumentException("Item não está disponível!");
+
+		pets.remove(pet);
+	}
+		
 	public void showCharacters ()
 	{
 		System.out.print( "GameCharacter :\n" );
@@ -552,7 +594,6 @@ public class Game
 		}
 	}
 
-	//////////////////TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void showInventory(String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
@@ -616,6 +657,26 @@ public class Game
 			throw new IllegalArgumentException("Item não está no Jogo");
 
 		return itm;
+	}
+
+	private int petID (String pet) throws IllegalArgumentException
+	{
+
+		int p = -1;
+
+		for (int i = 0; i < pets.size(); i++)
+		{
+			if (pets.get(i).getName().equals(pet))
+			{
+				p = i;
+				p = pets.size();
+			}
+		}
+
+		if (p == -1)
+			throw new IllegalArgumentException("Pet não está no Jogo");
+
+		return p;
 	}
 
 	public void trainChar (String ch) throws IllegalArgumentException
