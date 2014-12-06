@@ -18,7 +18,7 @@
 
 package Game;
 
-public abstract class Item {
+public abstract class Item implements Sellable {
 
 	/*   Atributos da classe Item (todos são privados)  */
 

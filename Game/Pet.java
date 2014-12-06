@@ -1,6 +1,6 @@
 package Game;
 
-public class Pet implements Attacker {
+public class Pet implements Attacker, Sellable {
 	private static final int MIN_ATTACK_POINTS = 1;
 
 	/*Atributos*/
@@ -19,6 +19,16 @@ public class Pet implements Attacker {
 	public void addAttackPoints (int attackPoints)
 	{
 		this.attackPoints = Math.max(MIN_ATTACK_POINTS, this.attackPoints + attackPoints);
+	}
+
+	public String getName ()
+	{
+		return name;
+	}
+
+	public double getPrice ()
+	{
+		return 5*getAttackPoints();
 	}
 
 	public int getAttackPoints () {
