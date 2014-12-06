@@ -219,10 +219,8 @@ public class Game
 	{
 		int tmId = teamId(tm);
 
-		if (tmId == INVALID)
-			return false;
-
-		return teams.get(tmId).removeChar(ch);
+		if (teams.get(tmId).removeChar(ch) != true)
+			throw IllegalArgumentException ("Personagem não faz parte do Time");
 	}
 
 	public void teamBattle (String team1, String team2) throws IllegalArgumentException
@@ -230,13 +228,10 @@ public class Game
 		int tm1 = teamId(team1);
 		int tm2 = teamId(team2);
 
-		if (tm1 == INVALID || tm2 == INVALID)
-			return false;
-
-		return teamBattle (tm1, tm2);
+		teamBattle (tm1, tm2);
 	}
 
-	private void teamBattle(int team1, int team2) throws IllegalArgumentException
+	private void teamBattle(int team1, int team2)
 	{
 		if (Utils.rnd(0,1) < 0.5)
 		{
@@ -274,8 +269,6 @@ public class Game
 
 		teams.get(team1).resolveBattle(teams.get(team2));
 		teams.get(team2).resolveBattle(teams.get(team1));
-
-		return true;
 	}
 
 
@@ -285,19 +278,13 @@ public class Game
 		c1 = charId(ch1);
 		c2 = charId(ch2);
 
-		if (c1 == INVALID || c2 == INVALID)
-			return false;
-
-		return charAttack(c1,c2);
+		charAttack(c1,c2);
 	}
 
 	private void charAttack (int ch1, int ch2) throws IllegalArgumentException
 	{
 		if (ch1 < 0 || ch2 < 0 || ch1 >= chars.size() || ch2 >= chars.size())
-		{
-			System.out.print( "INVALID CHARACTERS!\n" );
-			return false;
-		}
+			throw IllegalArgumentException ("Personagem não está no Jogo");
 
 		chars.get(ch1).attack(chars.get(ch2));
 
@@ -306,8 +293,6 @@ public class Game
 			System.out.print( chars.get(ch2).getName() + " is DEAD )':\n" );
 			chars.remove(ch2);
 		}
-
-		return true;
 	}
 
 
@@ -398,16 +383,19 @@ public class Game
 
 	public void removeChar (String ch) throws IllegalArgumentException
 	{
-		int chId = charId (ch);
+		int ch = charId (ch);
 
-		if (chId == INVALID)
-			return false;
+		removeChar (c);
+	}
 
-		for (int i = 0; i < teams.size() && teams.get(i).removeChar(ch) != false; i++);
+	private void removeChar (int ch) throws IllegalArgumentException
+	{
+		if (ch < 0 || ch >= chars.size())
+			throw IllegalArgumentException("Personagem não está no Jogo!");
 
-		chars.remove(chId);
+		for (int i = 0; i < teams.size() && teams.get(i).removeChar(chars.get(ch).getName()) != false; i++);
 
-		return true;
+		chars.remove(ch);
 	}
 
 	///////////////////////// TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -476,19 +464,56 @@ public class Game
 
 	private int teamId (String tm) throws IllegalArgumentException
 	{
-		return 0;
-		///////////////////////////////////// TO DOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		int t = -1;
+
+		for (int i = 0; i < teams.size(); i++)
+		{
+			if (teams.get(i).getName().equals(tm))
+			{
+				t = i;
+				i = teams.size();
+			}
+		}
+
+		if (t == -1)
+			throw IllegalArgumentException("Time não está no Jogo");
+
+		return t;
 	}
 
 	private int charId (String ch) throws IllegalArgumentException
 	{
-		return 0;
-		///////////////////////////////////// TO DOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		int c = -1;
+
+		for (int i = 0; i < chars.size(); i++)
+		{
+			if (chars.get(i).getName().equals(ch))
+			{
+				c = i;
+				i = chars.size();
+			}
+		}
+
+		if (c == -1)
+			throw IllegalArgumentException("Personagem não está no Jogo");
 	}
 
 	private int itemId (String it) throws IllegalArgumentException
 	{
-		return 0;
+		int itm = -1;
+
+		for (int i = 0; i < items.size(); i++)
+		{
+			if (items.get(i).getName().equals(tm))
+			{
+				itm = i;
+				i = items.size();
+			}
+		}
+
+		if (itm == -1)
+			throw IllegalArgumentException("Item não está no Jogo");
 	}
 
 
