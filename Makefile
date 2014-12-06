@@ -35,6 +35,9 @@ items:
 	@$(CC)  $(GAME)/ManaPotion.java
 	@$(CC)	$(GAME)/RageMode.java
 	@$(CC)	$(GAME)/RagePotion.java
+	@$(CC)	$(GAME)/Shop.java
+	@$(CC)	$(GAME)/PetShop.java
+	@$(CC)	$(GAME)/ItemShop.java
 inventory:
 	@echo 'Pré-Compilando Inventário...'
 	@$(CC)  $(GAME)/Inventory.java
