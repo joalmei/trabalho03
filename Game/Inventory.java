@@ -18,7 +18,9 @@
 
 package Game;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 
 public class Inventory {
 
@@ -115,13 +117,13 @@ public class Inventory {
 	/***  Métodos de Inserção  ***/
 
 	/*  Insere no Inventário o Item apontado por 'item'  */
-	public void insertItem(Item item)
+	public void insertItem(Item item) throws FullInventoryException
 	{
 		//Não insere caso não exista mais espaço livre
 		//Não insere caso exista um igual
 
-		if (this.items.size() > spaces || item == null || searchItem(item.getName()) != null)
-			return;
+		if (this.items.size() > spaces)
+			throw new FullInventoryException("Inventário Cheio!!!");
 
 		this.items.add(Pair.make_pair(item,false));
 	}
@@ -172,7 +174,7 @@ public class Inventory {
 	}
 
 	/*  Verifica se o Item está equipado!  */
-	boolean isEquipped (int pos)
+	public boolean isEquipped (int pos) throws IllegalArgumentException
 	{
 		if (pos < 0 || ( pos >= this.items.size() ))
 			return false;
@@ -180,7 +182,7 @@ public class Inventory {
 		return this.items.get(pos).second;
 	}
 
-	boolean isEquipped(String iname)
+	public boolean isEquipped(String iname)
 	{
 		int i = 0;
 
@@ -195,18 +197,14 @@ public class Inventory {
 
 
 	/*  Equipa o item apontado por 'item', caso o Inventário o possua  */
-	boolean equipItem(Item item, GameCharacter user)
+	public void equipItem(Item item, GameCharacter user) throws IllegalArgumentException
 	{
-		if (item == null || user == null)
-			return false;
-
-		return this.equipItem(item.getName(), user);
+		this.equipItem(item.getName(), user);
 	}
 	
 	/*  Equipa o item cujo nome é 'iname', caso o Inventário o possua  */
-	boolean equipItem(String iname, GameCharacter user)
+	public void equipItem(String iname, GameCharacter user) throws IllegalArgumentException
 	{
-		if (user == null)	return false;
 		int i = 0;
 
 		for (i = 0; i < this.items.size(); ++i)
@@ -214,22 +212,22 @@ public class Inventory {
 			{
 				//caso esteja equipada, não faz sentido equipar novamente
 				if (isEquipped(i))
-					return false;
+					throw new IllegalArgumentException("Item já está equipado!");
 
 				//caso seja um tipo de weapon, não se pode equipar mais do que MAX_WEAPONS!
 				if (this.items.get(i).first.getAttackPts() != 0 && this.nweapons == MAX_WEAPONS)
-					return false;
+					throw new IllegalArgumentException("Só duas arma por personagem!");
 				
 				//caso seja um tipo de armor, não se pode equipar mais do que 1!
 				if (this.items.get(i).first.getDefensePts() != 0 && this.armored)
-					return false;
+					throw new IllegalArgumentException("Só uma armadura por personagem!");
 
 				this.items.get(i).second = this.items.get(i).first.equip(user, this);
 
 
 				//caso não tenha sido possível equipar, retorna false
 				if (this.items.get(i).second == false)
-					return false;
+					throw new IllegalArgumentException("Não foi possível equipar o Item!");
 
 				//caso seja um tipo de weapon, conta-se +1
 				if (this.items.get(i).first.getAttackPts() != 0)
@@ -238,50 +236,41 @@ public class Inventory {
 				//caso seja um tipo de armor, marca que esta está equipada!
 				if (this.items.get(i).first.getDefensePts() != 0)
 					this.armored = true;
-
-				return true;
 			}
 
-		return false;
+		throw new IllegalArgumentException("O item não está no inventário!");
 	}
 
 
 	/*  Equipa o item apontado por 'item', caso o Inventário o possua  */
-	boolean useItem(Item item, GameCharacter user)
+	public void useItem(Item item, GameCharacter user) throws IllegalArgumentException
 	{
-		if (item == null || user == null)
-			return false;
-
-		return useItem(item.getName(), user);
+		useItem(item.getName(), user);
 	}
 	
 	/*  Equipa o item cujo nome é 'iname', caso o Inventário o possua  */
-	boolean useItem(String iname, GameCharacter user)
+	public void useItem(String iname, GameCharacter user) throws IllegalArgumentException
 	{
-		if (user == null)	return false;
-
 		int i = 0;
 
 		// Busca o primeiro item de nome iname, e utiliza-o
 		for (i = 0; i < this.items.size(); ++i)
 			if (this.items.get(i).first.getName().equals(iname) && isEquipped(i))
-				return this.items.get(i).first.use(user,this);
+				if (this.items.get(i).first.use(user,this) == false)
+					throw new IllegalArgumentException("Item não pode ser utilizado!");
 
-		return false;
+		throw new IllegalArgumentException("Item não está no Inventário do Personagem!");
 	}
 
 
 	/*  Desequipa o item apontado por 'item', caso o Inventário o possua  */
-	boolean unequipItem(Item item, GameCharacter user)
+	public void unequipItem(Item item, GameCharacter user) throws IllegalArgumentException
 	{
-		if (item == null || user == null)
-			return false;
-
-		return this.unequipItem(item.getName(), user);
+		this.unequipItem(item.getName(), user);
 	}
 	
 	/*  Desequipa o item cujo nome é 'iname', caso o Inventário o possua  */
-	boolean unequipItem(String iname, GameCharacter user)
+	public void unequipItem(String iname, GameCharacter user) throws IllegalArgumentException
 	{
 		int i = 0;
 
@@ -290,24 +279,22 @@ public class Inventory {
 			{
 				//caso não esteja equipado, não faz sentido desequipá-lo
 				if (!isEquipped(i))
-					return false;
+					throw new IllegalArgumentException("O item não está equipado!");
 
 				//tenta desequipar
 				this.items.get(i).second =  !(this.items.get(i).first.unequip(user, this));
 
 				//se este permanece equipado, ocorreu algo errado!
 				if (isEquipped(i))
-					return false;
+					throw new IllegalArgumentException("Não foi possível desequipar o item!");
 
 				//verifica se é uma weapon ou armor, e atualiza a quantidade de weapons/armors
 				if (this.items.get(i).first.getAttackPts() != 0)
 					this.nweapons--;
 				if (this.items.get(i).first.getDefensePts() != 0)
 					this.armored = false;
-
-				return true;
 			}
 
-		return false;
+		throw new IllegalArgumentException("O item não está no inventário!");
 	}
 }

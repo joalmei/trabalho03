@@ -358,58 +358,49 @@ public class GameCharacter implements Attacker {
 	// o item (e, se necessário, a referência do character), para
 	// as funções do inventário que tratam essas funcionalidades
 
-	public void winItem (Item item)
+	public void winItem (Item item) throws FullInventoryException
 	{
-		if (item == null)
-			return;
-
 		myitems.insertItem(item);
 	}
 
 
 	/*  Equipa o item apontado por 'item', caso o GameCharacter o possua  */
-	public boolean equipItem(Item item)
+	public void equipItem(Item item) throws IllegalArgumentException
 	{
-		if (item == null)	return false;
-
-		return this.myitems.equipItem(item, this);
+		this.myitems.equipItem(item, this);
 	}
 	
 	/*  Equipa o item cujo nome é 'iname', caso o GameCharacter o possua  */
-	public boolean equipItem(String iname)
+	public void equipItem(String iname) throws IllegalArgumentException
 	{
-		return this.myitems.equipItem(iname, this);
+		this.myitems.equipItem(iname, this);
 	}
 
 	
 	/*  Equipa o item apontado por 'item', caso o GameCharacter o possua  */
-	public boolean useItem(Item item)
+	public void useItem(Item item) throws IllegalArgumentException
 	{
-		if (item == null)	return false;
-
-		return this.myitems.useItem(item, this);
+		this.myitems.useItem(item, this);
 	}
 	
 	/*  Equipa o item cujo nome é 'iname', caso o GameCharacter o possua  */
-	public boolean useItem(String iname)
+	public void useItem(String iname) throws IllegalArgumentException
 	{
-		return this.myitems.useItem(iname, this);
+		this.myitems.useItem(iname, this);
 	}
 
 
 
 	/*  Desequipa o item apontado por 'item', caso o GameCharacter o possua  */
-	public boolean unequipItem(Item item)
+	public void unequipItem(Item item) throws IllegalArgumentException
 	{
-		if (item == null)	return false;
-
-		return this.myitems.unequipItem(item, this);
+		this.myitems.unequipItem(item, this);
 	}
 	
 	/*  Desequipa o item cujo nome é 'iname', caso o GameCharacter o possua  */
-	public boolean unequipItem(String iname)
+	public void unequipItem(String iname) throws IllegalArgumentException
 	{
-		return this.myitems.unequipItem(iname, this);
+		this.myitems.unequipItem(iname, this);
 	}
 
 

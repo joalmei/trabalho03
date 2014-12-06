@@ -6,9 +6,9 @@ public class Game
 {
 	public static final int INVALID = -1;
 
-	ArrayList<GameCharacter> chars;
-	ArrayList<Item> items;
-	ArrayList<Team> teams;
+	private ArrayList<GameCharacter> chars;
+	private ArrayList<Item> items;
+	private ArrayList<Team> teams;
 
 
 	private Game()
@@ -82,8 +82,15 @@ public class Game
 
 		for (int i = 0; i < 4; ++i)
 		{
-			chars.get(0).winItem(items.get(i));
-			chars.get(0).equipItem(items.get(i));
+			try
+			{
+				chars.get(0).winItem(items.get(i));
+				chars.get(0).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -97,8 +104,15 @@ public class Game
 
 		for (int i = 4; i < 6; ++i)
 		{
-			chars.get(1).winItem(items.get(i));
-			chars.get(1).equipItem(items.get(i));
+			try
+			{
+				chars.get(1).winItem(items.get(i));
+				chars.get(1).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -112,8 +126,15 @@ public class Game
 
 		for (int i = 6; i < 8; ++i)
 		{
-			chars.get(2).winItem(items.get(i));
-			chars.get(2).equipItem(items.get(i));
+			try
+			{
+				chars.get(2).winItem(items.get(i));
+				chars.get(2).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -127,8 +148,15 @@ public class Game
 
 		for (int i = 8; i < 10; ++i)
 		{
-			chars.get(3).winItem(items.get(i));
-			chars.get(3).equipItem(items.get(i));
+			try
+			{
+				chars.get(3).winItem(items.get(i));
+				chars.get(3).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -142,8 +170,15 @@ public class Game
 
 		for (int i = 10; i < 14; ++i)
 		{
-			chars.get(4).winItem(items.get(i));
-			chars.get(4).equipItem(items.get(i));
+			try
+			{
+				chars.get(4).winItem(items.get(i));
+				chars.get(4).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -157,8 +192,15 @@ public class Game
 
 		for (int i = 14; i < 18; ++i)
 		{
-			chars.get(5).winItem(items.get(i));
-			chars.get(5).equipItem(items.get(i));
+			try
+			{
+				chars.get(5).winItem(items.get(i));
+				chars.get(5).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -172,8 +214,15 @@ public class Game
 
 		for (int i = 18; i < 20; ++i)
 		{
-			chars.get(6).winItem(items.get(i));
-			chars.get(6).equipItem(items.get(i));
+			try
+			{
+				chars.get(6).winItem(items.get(i));
+				chars.get(6).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 
@@ -187,8 +236,15 @@ public class Game
 
 		for (int i = 20; i < 22; ++i)
 		{
-			chars.get(7).winItem(items.get(i));
-			chars.get(7).equipItem(items.get(i));
+			try
+			{
+				chars.get(7).winItem(items.get(i));
+				chars.get(7).equipItem(items.get(i));
+			}
+			catch (FullInventoryException e)
+			{
+				System.err.println(e);
+			}
 		}
 
 		//Remover os items já designados aos personagens do vetor de items
@@ -220,7 +276,7 @@ public class Game
 		int tmId = teamId(tm);
 
 		if (teams.get(tmId).removeChar(ch) != true)
-			throw IllegalArgumentException ("Personagem não faz parte do Time");
+			throw new IllegalArgumentException ("Personagem não faz parte do Time");
 	}
 
 	public void teamBattle (String team1, String team2) throws IllegalArgumentException
@@ -284,44 +340,58 @@ public class Game
 	private void charAttack (int ch1, int ch2) throws IllegalArgumentException
 	{
 		if (ch1 < 0 || ch2 < 0 || ch1 >= chars.size() || ch2 >= chars.size())
-			throw IllegalArgumentException ("Personagem não está no Jogo");
+			throw new IllegalArgumentException ("Personagem não está no Jogo");
 
 		chars.get(ch1).attack(chars.get(ch2));
 
 		if (chars.get(ch2).getHP() <= 0)
 		{
-			System.out.print( chars.get(ch2).getName() + " is DEAD )':\n" );
-			chars.remove(ch2);
+			System.out.print(chars.get(ch2).getName() + " is DEAD )':\n" );
+			chars.remove (ch2);
 		}
 	}
 
 
 	//TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!
 	public void joinTeam (String ch, String tm) throws IllegalArgumentException
-	{ ; }
+	{
+		int c = charId (ch);
+		int t = teamId (tm);
+
+		joinTeam (c,t);
+	}
+
+	private void joinTeam (int ch, int tm) throws IllegalArgumentException
+	{
+		if (ch < 0 || ch >= chars.size())
+			throw new IllegalArgumentException("Personagem não está no Jogo");
+		if  (tm < 0 || tm >= teams.size())
+			throw new IllegalArgumentException("Time não está no Jogo");
+
+		for (int i = 0; i < teams.size() && teams.get(i).removeChar(chars.get(i).getName()); i++);
+
+		teams.get(tm).addChar(chars.get(ch));
+	}
 
 
-	public void winItem (String ch, String it) throws IllegalArgumentException
+	public void winItem (String ch, String it) throws IllegalArgumentException, FullInventoryException
 	{
 		int c = charId(ch);
 		int i = itemId(it);
 
-		if (c == INVALID || i == INVALID)
-			return false;
-
-		return winItem (c, i);
+		winItem (c, i);
 	}
 
 
-	private void winItem (int ch, int it) throws IllegalArgumentException
+	private void winItem (int ch, int it) throws IllegalArgumentException, FullInventoryException
 	{
-		if (ch < 0 || ch >= chars.size() || it < 0 || it >= items.size())
-			return false;
+		if (ch < 0 || ch >= chars.size())
+			throw new IllegalArgumentException("Personagem não está no Jogo");
+		if (it < 0 || it >= items.size())
+			throw new IllegalArgumentException("Item não está no Jogo");
 
 		chars.get(ch).winItem(items.get(it));
 		items.remove(it);
-	
-		return true;
 	}
 
 
@@ -329,10 +399,7 @@ public class Game
 	{
 		int c = charId (ch);
 
-		if (c == INVALID)
-			return false;
-
-		return chars.get(c).useItem(it);
+		chars.get(c).useItem(it);
 	}
 
 	
@@ -340,50 +407,38 @@ public class Game
 	{
 		int c = charId (ch);
 
-		if (c == INVALID)
-			return false;
-
-		return chars.get(c).equipItem(it);
+		chars.get(c).equipItem(it);
 	}
 
 
-	public void addChar (GameCharacter ch) throws NullPointerException
+	public void addChar (GameCharacter ch)
 	{
 		if (ch == null)
-			return false;
-			//AQUI, DAR UM null POINTER EXCEPTION!!!
+			return;
 
 		chars.add(ch);
-
-		return true;
 	}
 
-	public void addTeam (Team tm) throws NullPointerException
+	public void addTeam (Team tm)
 	{
 		if (tm == null)
-			return false;
-			//AQUI, DAR UM null POINTER EXCEPTION!!!
+			return;
 
 		teams.add(tm);
-
-		return true;
 	}
 
-	public void addItem (Item it) throws NullPointerException
+	public void addItem (Item it)
 	{
 		if (it == null)
-			return false;
-			//AQUI, DAR UM null POINTER EXCEPTION!!!
+			return;
 
 		items.add(it);
-
-		return true;
 	}
 
 
 	public void removeChar (String ch) throws IllegalArgumentException
 	{
-		int ch = charId (ch);
+		int c = charId (ch);
 
 		removeChar (c);
 	}
@@ -391,7 +446,7 @@ public class Game
 	private void removeChar (int ch) throws IllegalArgumentException
 	{
 		if (ch < 0 || ch >= chars.size())
-			throw IllegalArgumentException("Personagem não está no Jogo!");
+			throw new IllegalArgumentException("Personagem não está no Jogo!");
 
 		for (int i = 0; i < teams.size() && teams.get(i).removeChar(chars.get(ch).getName()) != false; i++);
 
@@ -400,10 +455,36 @@ public class Game
 
 	///////////////////////// TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void removeTeam (String tm) throws IllegalArgumentException
-	{return true;}
+	{
+		int t = charId (tm);
+
+		removeChar (t);
+	}
+
+	private void removeTeam (int tm) throws IllegalArgumentException
+	{
+		if (tm < 0 || tm >= teams.size())
+			throw new IllegalArgumentException("Personagem não está no Jogo!");
+
+		teams.remove(tm);
+	}
+
+
 
 	public void removeItem (String it) throws IllegalArgumentException
-	{return true;}
+	{
+		int i = itemId(it);
+
+		removeItem(i);
+	}
+
+	public void removeItem (int it) throws IllegalArgumentException
+	{
+		if (it < 0 && it >= items.size())
+			throw new IllegalArgumentException("Item não está disponível!");
+
+		items.remove(it);
+	}
 
 
 	public void showCharacters ()
@@ -426,7 +507,7 @@ public class Game
 		}
 	}
 
-	private void showTeams ()
+	public void showTeams ()
 	{
 		System.out.print( "Teams :\n" );
 		for (int i = 0; i < teams.size(); ++i)
@@ -442,7 +523,7 @@ public class Game
 		}
 	}
 
-	private void showItems ()
+	public void showItems ()
 	{
 		System.out.print( "Items :\n" );
 		for (int i = 0; i < items.size(); ++i)
@@ -462,6 +543,14 @@ public class Game
 		}
 	}
 
+	//////////////////TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public void showInventory(String ch)
+	{
+		int c = charId(ch);
+
+		chars.get(c).printInventory();
+	} 
+
 	private int teamId (String tm) throws IllegalArgumentException
 	{
 		int t = -1;
@@ -476,7 +565,7 @@ public class Game
 		}
 
 		if (t == -1)
-			throw IllegalArgumentException("Time não está no Jogo");
+			throw new IllegalArgumentException("Time não está no Jogo");
 
 		return t;
 	}
@@ -496,7 +585,9 @@ public class Game
 		}
 
 		if (c == -1)
-			throw IllegalArgumentException("Personagem não está no Jogo");
+			throw new IllegalArgumentException("Personagem não está no Jogo");
+
+		return c;
 	}
 
 	private int itemId (String it) throws IllegalArgumentException
@@ -505,7 +596,7 @@ public class Game
 
 		for (int i = 0; i < items.size(); i++)
 		{
-			if (items.get(i).getName().equals(tm))
+			if (items.get(i).getName().equals(it))
 			{
 				itm = i;
 				i = items.size();
@@ -513,7 +604,9 @@ public class Game
 		}
 
 		if (itm == -1)
-			throw IllegalArgumentException("Item não está no Jogo");
+			throw new IllegalArgumentException("Item não está no Jogo");
+
+		return itm;
 	}
 
 
