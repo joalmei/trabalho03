@@ -279,7 +279,12 @@ public class Main {
 		System.out.print( "Team's nome: " );
 		teamID = s.nextLine();
 
-		game.joinTeam(charID, teamID);
+		try {
+			game.joinTeam(charID, teamID);
+		}
+		catch(IllegalArgumentException e) {
+			System.err.println(e);
+		}
 	}
 
 	public static void showTeams (Game game)
@@ -290,11 +295,6 @@ public class Main {
 	public static void showChars(Game game)
 	{
 		game.showCharacters();
-	}
-
-	public static void powerUp (Game game)
-	{
-		;
 	}
 
 	public static void charEquipItem (Game game)
@@ -340,7 +340,12 @@ public class Main {
 			it = s.nextLine();
 		}while (it.equals(""));
 
-		game.equipItem(name, it);
+		try {
+			game.equipItem(name, it);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
 	}
 
 	public static void charUseItem (Game game)
@@ -386,7 +391,12 @@ public class Main {
 			it = s.nextLine();
 		}while (it.equals(""));
 
-		game.useItem(name, it);
+		try {
+			game.useItem(name, it);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
 
 	}
 
@@ -396,7 +406,22 @@ public class Main {
 	}
 	
 	public static void showInventory(Game game)
-	{
+	{	
+		String name;
+
+		System.out.print( "Char's name: " );
+		
+		do
+		{
+			name = s.nextLine();
+		}while(name.equals(""));
+
+		try {
+			game.showInventory(name);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
 
 	}
 
@@ -431,7 +456,16 @@ public class Main {
 			it = s.nextLine();
 		}while (it.equals(""));
 
-		game.winItem(name, it);
+		try {
+			game.winItem(name, it);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
+		catch (FullInventoryException e) {
+			System.err.println(e);
+		}
+
 	}
 	
 	public static void charAttack(Game game)
@@ -452,7 +486,13 @@ public class Main {
 			enemy = s.nextLine();
 		}while(enemy.equals(""));
 
-		game.charAttack(name, enemy);
+		try {
+			game.charAttack(name, enemy);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
+
 	}
 	
 	public static void teamAttackTeam(Game game)
@@ -472,7 +512,56 @@ public class Main {
 			t2 = s.nextLine();
 		}while(t2.equals(""));
 
-		game.teamBattle(t1, t2);
+		try {
+			game.teamBattle(t1, t2);
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
+
+	}
+
+	public static void train (Game game) 
+	{
+		String name, type;
+
+		System.out.print( "Char's name: " );
+		
+		do
+		{
+			name = s.nextLine();
+		}while(name.equals(""));
+
+		try {
+			do
+			{
+				System.out.println("Who will train? (Char or Pet): ");
+				
+				do
+				{
+					type = s.nextLine();
+				}while(name.equals(""));
+
+				type = type.toLowerCase();
+				if (type.equals("char"))
+				{
+					game.trainChar(name);
+				}
+				else if (type.equals("pet"))
+				{
+					game.trainPet(name);
+				}
+				else
+				{
+					System.out.print( "NOT VALID! TRY: Knight, Thief or Wizard!\n" );
+					type = "NO";
+				}
+			}while(type.equals("NO"));
+
+		}
+		catch (IllegalArgumentException e) {
+			System.err.println(e);
+		}
 	}
 	
 	public static void showOptions()
