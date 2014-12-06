@@ -50,10 +50,7 @@ public class Main {
 		{
 			System.out.print( "\nSelect Option: " );
 			
-			do
-			{
-				option = s.nextLine();
-			}while (option.equals(""));	//for flush the buffer
+			option = readString();
 
 
 			if (option.equals("new char"))
@@ -62,10 +59,14 @@ public class Main {
 				createItem (game);
 			else if (option.equals("new team"))
 				createTeam (game);
+			else if (option.equals("new pet"))
+				createPet (game);
 			else if (option.equals("char join team"))
 				charJoinTeam (game);
 			else if (option.equals("equip char"))
 				charEquipItem (game);
+			else if (option.equals("train"))
+				train (game);
 			else if (option.equals("char use item"))
 				charUseItem (game);
 			else if (option.equals("char wins item"))
@@ -101,19 +102,13 @@ public class Main {
 		
 		System.out.print( "Chars's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		do
 		{
 			System.out.print( "Char's type: " );
 			
-			do
-			{
-				type = s.nextLine();
-			}while(name.equals(""));
+			type = readString();
 
 			type = type.toLowerCase();
 			if (type.equals("knight"))
@@ -151,10 +146,7 @@ public class Main {
 		double price;
 		System.out.print( "Item's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while (name.equals(""));
+		name = readString();
 
 		System.out.print( "Item's price: " );
 		price = s.nextDouble();
@@ -162,10 +154,7 @@ public class Main {
 
 		System.out.print( "Item's type: " );
 		
-		do
-		{
-			type = s.nextLine();
-		}while (type.equals(""));
+		type = readString();
 
 		type = type.toLowerCase();
 
@@ -205,10 +194,7 @@ public class Main {
 
 			System.out.print( "Potion Type: " );
 			
-			do
-			{
-				ptype = s.nextLine();
-			}while (ptype.equals(""));
+			ptype = readString();
 
 
 			ptype = ptype.toLowerCase();
@@ -231,19 +217,13 @@ public class Main {
 
 		System.out.print( "Team's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while (name.equals(""));
+		name = readString();
 
 		do
 		{
 			System.out.print( "Team's color: " );
 			
-			do
-			{
-				color = s.nextLine();
-			}while (color.equals(""));
+			color = readString();
 
 			color = color.toLowerCase();
 			if (color.equals("blue"))
@@ -266,6 +246,18 @@ public class Main {
 		}while (color.equals("invalid"));
 
 		game.addTeam(new Team(name, cl));
+	}
+
+	public static void createPet (Game game)
+	{
+		String name;
+
+		System.out.println("Pet's name: ");
+
+		name = readString();
+
+		System.out.println("Do you think he needs a best character friend? ");
+
 	}
 
 	public static void charJoinTeam (Game game)
@@ -302,10 +294,7 @@ public class Main {
 		String input, name;
 		System.out.print( "Print character list? " );
 		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
+		input = readString();
 
 		input = input.toLowerCase();
 		if (input.equals("yes"))
@@ -313,17 +302,11 @@ public class Main {
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		System.out.print( "Print character's inventory? " );
 		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
+		input = readString();
 
 		input = input.toLowerCase();
 		if (input.equals("yes"))
@@ -335,10 +318,7 @@ public class Main {
 		System.out.print( "Item's name: " );
 
 		//Evitar o FLUSH!
-		do
-		{
-			it = s.nextLine();
-		}while (it.equals(""));
+		it = readString();
 
 		try {
 			game.equipItem(name, it);
@@ -353,28 +333,20 @@ public class Main {
 		String input, name;
 		System.out.print( "Print character list? " );
 		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
+		input = readString();
 
 		input = input.toLowerCase();
+
 		if (input.equals("yes"))
 			game.showCharacters();
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		System.out.print( "Print character's inventory? " );
 		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
+		input = readString();
 
 		input = input.toLowerCase();
 		if (input.equals("yes"))
@@ -386,10 +358,7 @@ public class Main {
 		System.out.print( "Item's name: " );
 
 		//Evitar o FLUSH!
-		do
-		{
-			it = s.nextLine();
-		}while (it.equals(""));
+		it = readString();
 
 		try {
 			game.useItem(name, it);
@@ -411,10 +380,7 @@ public class Main {
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		try {
 			game.showInventory(name);
@@ -430,10 +396,7 @@ public class Main {
 		String input, name;
 		System.out.print( "Print character list? " );
 		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
+		input = readString();
 
 		input = input.toLowerCase();
 		if (input.equals("yes"))
@@ -441,20 +404,15 @@ public class Main {
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		String it;
 
 		System.out.print( "Item's name: " );
 
 		//Evitar o FLUSH!
-		do
-		{
-			it = s.nextLine();
-		}while (it.equals(""));
+		it = readString();
+
 
 		try {
 			game.winItem(name, it);
@@ -474,17 +432,11 @@ public class Main {
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		System.out.print( "Enemy's name: " );
 		
-		do
-		{
-			enemy = s.nextLine();
-		}while(enemy.equals(""));
+		enemy = readString();
 
 		try {
 			game.charAttack(name, enemy);
@@ -500,17 +452,11 @@ public class Main {
 		String t1,t2;
 		
 		System.out.print( "Team 1's name: " );
-		do
-		{
-			t1 = s.nextLine();
-		}while(t1.equals(""));
+		t1 = readString();
 
 
 		System.out.print( "Team 2's name: " );
-		do
-		{
-			t2 = s.nextLine();
-		}while(t2.equals(""));
+		t2 = readString();
 
 		try {
 			game.teamBattle(t1, t2);
@@ -527,20 +473,14 @@ public class Main {
 
 		System.out.print( "Char's name: " );
 		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
+		name = readString();
 
 		try {
 			do
 			{
 				System.out.println("Who will train? (Char or Pet): ");
 				
-				do
-				{
-					type = s.nextLine();
-				}while(name.equals(""));
+				type = readString();
 
 				type = type.toLowerCase();
 				if (type.equals("char"))
@@ -572,6 +512,7 @@ public class Main {
 		"char to team 		: include a character in a team\n" +
 		"power up 		: add char XP\n" + 
 		"equip char 		: equip char with an item at his/her inventory\n" +
+		"train 			: train a char or a pet's char\n" +
 		"char use item 		: use char's item in his/her inventory\n" +
 		"char wins item 		: char <- item\n" + 
 		"char attk 		: char 1 attack char 2\n" +
@@ -582,6 +523,19 @@ public class Main {
 		"show items 		: show items\n" + 
 		"show inventory 		: show inventory\n" +
 		"exit 			: exit\n" );
+	}
+
+	/*  Lê Strings, resolvendo o probela de qualquer   */
+	public static String readString ()
+	{
+		String toRead;
+		
+		do
+		{
+			toRead = s.nextLine();
+		}while(toRead.equals(""));
+
+		return toRead;
 	}
 
 }

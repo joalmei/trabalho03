@@ -83,8 +83,20 @@ public abstract class GameCharacter implements Attacker {
 	
 	/***  Setters  ***/
 
-	public void setPet (Pet pet) {
+	public void winPet (Pet pet) {
 		this.pet = pet;
+	}
+
+	public Pet removePet (Pet pet)
+	{
+		Pet pt = pet;
+		pet = null;
+		return pt;
+	}
+
+	public Item removeItem (String it)
+	{
+		return myitems.removeItem(it);
 	}
 	
 	/*  Atualiza o valor da força do GameCharacter  */

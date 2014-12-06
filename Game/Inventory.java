@@ -133,25 +133,35 @@ public class Inventory {
 	/***  Métodos Remoção  ***/
 
 	/*  Remove do Inventário o Item de nome 'iname'  */
-	public void removeItem(String iname)
+	public Item removeItem(String iname)
 	{
 		// Busca a primeira ocorrência do item de nome 'iname'
 		// deleta-o e termina a pesquisa
+
+		Item it = null;
+
 		for (int i = 0; i < this.items.size(); ++i)
 			if (this.items.get(i).first.getName().equals(iname))
 			{
+				it = items.get(i).first;
 				this.items.remove(i);
 				i = this.items.size();	//fim do for!
 			}
+
+		return it;
 	}
 
 	/*  Remove do Inventário o Item na posição 'pos'  */
-	public void removeItem(int pos)
+	public Item removeItem(int pos)
 	{
 		if (pos < 0 || pos >= this.items.size())
-			return;
+			return null;
 		else
+		{
+			Item it = items.get(pos).first;
 			this.items.remove(pos);
+			return it;
+		}
 	}
 
 
