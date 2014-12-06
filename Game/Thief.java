@@ -59,4 +59,10 @@ public class Thief extends GameCharacter
 	{
 		return super.getDefensePoints();
 	}
+
+	public void train ()
+	{
+		this.myitems.spendGold(Utils.rnd(0,30));
+		this.HP.addHP(Utils.rnd(0,60));
+		this.XP.addXP(Utils.rnd(0,1));
 }

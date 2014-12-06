@@ -58,4 +58,12 @@ public class Knight extends GameCharacter
 	{
 		return super.getDefensePoints() + this.power;
 	}
+
+	/**/
+	public void train ()
+	{
+		this.myitems.spendGold(Utils.rnd(0,60));
+		this.HP.addHP(Utils.rnd(0,40));
+		this.XP.addXP(Utils.rnd(0,2));
+	}
 }

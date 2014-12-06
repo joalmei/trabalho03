@@ -59,4 +59,11 @@ public class Wizard extends GameCharacter
 	{
 		return super.getDefensePoints() + (this.wisdom/2);
 	}
+
+	public void train ()
+	{
+		this.HP -= Utils.rnd(0,40);
+		this.myitems.spendGold(Utils.rnd(0,200));
+		this.XP += Utils.rnd(0,3);
+	}
 }
