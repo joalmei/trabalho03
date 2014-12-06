@@ -26,6 +26,10 @@ public class Pet implements Attacker {
 		return this.attackPoints;
 	}
 
+	public String getName() {
+		return this.name();
+	}
+
 	/*  Implementa um ataque na forma 'this' ataca 'carac'  */
 	public void attack(GameCharacter charac)
 	{
