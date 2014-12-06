@@ -20,7 +20,7 @@ GAME = Game
 EXEC = Main
 
 # Rotina principal da compilação (chama a pré-compilação de todos os arquivos)
-all: items inventory character team utils main
+all: items inventory shop character team utils main
 	@echo 'PRONTO!'
 
 # Rotinas de geração dos arquivos .class
@@ -33,9 +33,13 @@ items:
 	@$(CC)  $(GAME)/Potion.java
 	@$(CC)  $(GAME)/HealthPotion.java
 	@$(CC)  $(GAME)/ManaPotion.java
+	@$(CC)	$(GAME)/RageMode.java
+	@$(CC)	$(GAME)/RagePotion.java
 inventory:
 	@echo 'Pré-Compilando Inventário...'
 	@$(CC)  $(GAME)/Inventory.java
+shop:
+	@$(CC)	$(GAME)/Sellable.java
 character:
 	@echo 'Pré-Compilando as classes de Characters..'
 	@$(CC)  $(GAME)/Attacker.java
