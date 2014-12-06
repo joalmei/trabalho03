@@ -236,6 +236,8 @@ public class Inventory {
 				//caso seja um tipo de armor, marca que esta está equipada!
 				if (this.items.get(i).first.getDefensePts() != 0)
 					this.armored = true;
+
+				return;
 			}
 
 		throw new IllegalArgumentException("O item não está no inventário!");
@@ -257,7 +259,11 @@ public class Inventory {
 		for (i = 0; i < this.items.size(); ++i)
 			if (this.items.get(i).first.getName().equals(iname) && isEquipped(i))
 				if (this.items.get(i).first.use(user,this) == false)
+				{
 					throw new IllegalArgumentException("Item não pode ser utilizado!");
+				}
+				else
+					return;
 
 		throw new IllegalArgumentException("Item não está no Inventário do Personagem!");
 	}
@@ -293,6 +299,8 @@ public class Inventory {
 					this.nweapons--;
 				if (this.items.get(i).first.getDefensePts() != 0)
 					this.armored = false;
+
+				return;
 			}
 
 		throw new IllegalArgumentException("O item não está no inventário!");

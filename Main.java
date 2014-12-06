@@ -580,7 +580,7 @@ public class Main {
 		"show teams 		: show all the teams in the game\n" +
 		"show chars 		: show chars\n" + 
 		"show items 		: show items\n" + 
-		"show inventory 	: show inventory\n" +
+		"show inventory 		: show inventory\n" +
 		"exit 			: exit\n" );
 	}
 

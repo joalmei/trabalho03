@@ -13,6 +13,9 @@ public class Game
 
 	public Game()
 	{
+		chars = new ArrayList<GameCharacter> ();
+		items = new ArrayList<Item> ();
+		teams = new ArrayList<Team> ();
 		/* Dados padrões, para teste preliminar do programa */
 
 		/*  Criação dos Items de teste  */
