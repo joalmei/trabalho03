@@ -11,7 +11,7 @@ public class Game
 	private ArrayList<Team> teams;
 
 
-	private Game()
+	public Game()
 	{
 		/* Dados padrões, para teste preliminar do programa */
 
@@ -289,6 +289,9 @@ public class Game
 
 	private void teamBattle(int team1, int team2)
 	{
+		if (team1 == team2)
+			System.out.println("REBELION ISN'T ALLOWED! THE TEAMS MUST BE DIFFERENT FOR BATTLE!\n");
+
 		if (Utils.rnd(0,1) < 0.5)
 		{
 			int aux = team2;
@@ -341,6 +344,9 @@ public class Game
 	{
 		if (ch1 < 0 || ch2 < 0 || ch1 >= chars.size() || ch2 >= chars.size())
 			throw new IllegalArgumentException ("Personagem não está no Jogo");
+
+		if (ch1 == ch2)
+			System.out.println("SUICIDE IS NOT AN OPTION! LIVE WITH YOUR PAINS!\n");
 
 		chars.get(ch1).attack(chars.get(ch2));
 

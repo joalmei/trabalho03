@@ -44,9 +44,11 @@ public class Main {
 	{
 		Game game = new Game();
 
+		String option;
+
 		do
 		{
-			System.out.show( "\nSelect Option: " );
+			System.out.print( "\nSelect Option: " );
 			
 			do
 			{
@@ -84,7 +86,7 @@ public class Main {
 				showInventory(game);
 			else if (!option.equals("exit"))
 			{
-				System.out.show( "INVALID OPTION!!\nTry one of these:\n" );
+				System.out.print( "INVALID OPTION!!\nTry one of these:\n" );
 				showOptions();
 			}
 
@@ -393,6 +395,11 @@ public class Main {
 		game.showItems();
 	}
 	
+	public static void showInventory(Game game)
+	{
+
+	}
+
 	public static void charWinsItem(Game game)
 	{
 		String input, name;
@@ -442,8 +449,8 @@ public class Main {
 		
 		do
 		{
-			name = s.nextLine();
-		}while(name.equals(""));
+			enemy = s.nextLine();
+		}while(enemy.equals(""));
 
 		game.charAttack(name, enemy);
 	}
