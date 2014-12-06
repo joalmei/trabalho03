@@ -43,12 +43,12 @@ public abstract class GameCharacter implements Attacker {
 
 	/*  Atributos privados  */
 	private String alias;
-	private Inventory myitems;
 	private int HP;
 	private int MP;
 	private Pet pet;
 
 	/*  Atributos protegidos  */
+	protected Inventory myitems;
 	protected int XP;
 	protected int strenght;
 	protected int speed;

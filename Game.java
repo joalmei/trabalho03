@@ -615,14 +615,14 @@ public class Game
 		return itm;
 	}
 
-	private void trainChar (String ch) throws IllegalArgumentException
+	public void trainChar (String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
 
 		chars.get(c).train();
 	}
 	
-	private void trainPet (String ch) throws IllegalArgumentException
+	public void trainPet (String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
 

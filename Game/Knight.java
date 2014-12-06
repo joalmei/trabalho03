@@ -62,8 +62,14 @@ public class Knight extends GameCharacter
 	/**/
 	public void train ()
 	{
-		this.myitems.spendGold(Utils.rnd(0,60));
-		this.HP.addHP(Utils.rnd(0,40));
-		this.XP.addXP(Utils.rnd(0,2));
+		int gd = (int) (-1.0*Utils.rnd(0,60));
+		int hp = (int) (-1.0*Utils.rnd(0,40));
+		int xp = (int) Utils.rnd(0,2);
+
+		myitems.spendGold(gd);
+		addHP(hp);
+		addXP(xp);
+		setStrenght(strenght + 1);
+		setConstitution(constitution + 1);
 	}
 }

@@ -62,8 +62,17 @@ public class Wizard extends GameCharacter
 
 	public void train ()
 	{
-		this.HP -= Utils.rnd(0,40);
-		this.myitems.spendGold(Utils.rnd(0,200));
-		this.XP += Utils.rnd(0,3);
+		int gd = (int) (-1.0*Utils.rnd(0,200));
+		int hp = (int) (-1.0*Utils.rnd(0,50));
+		int xp = (int) Utils.rnd(0,1);
+		int mp = (int) Utils.rnd(0,1);
+
+		myitems.spendGold(gd);
+		addHP(hp);
+		addXP(xp);
+		addMP(mp);
+
+		setDexterity(dexterity + 1);
+		setDexterity(speed + 1);
 	}
 }

@@ -62,7 +62,15 @@ public class Thief extends GameCharacter
 
 	public void train ()
 	{
-		this.myitems.spendGold(Utils.rnd(0,30));
-		this.HP.addHP(Utils.rnd(0,60));
-		this.XP.addXP(Utils.rnd(0,1));
+		int gd = (int) (-1.0*Utils.rnd(0,30));
+		int hp = (int) (-1.0*Utils.rnd(0,60));
+		int xp = (int) Utils.rnd(0,1);
+
+		myitems.spendGold(gd);
+		addHP(hp);
+		addXP(xp);
+
+		setStrenght(strenght + 1);
+		setSpeed(speed + 1);
+	}
 }
