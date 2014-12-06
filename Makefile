@@ -38,7 +38,10 @@ inventory:
 	@$(CC)  $(GAME)/Inventory.java
 character:
 	@echo 'Pré-Compilando as classes de Characters..'
+	@$(CC)  $(GAME)/Attacker.java
 	@$(CC)  $(GAME)/GameCharacter.java
+	@$(CC)  $(GAME)/Pet.java
+	@$(CC)  $(GAME)/PetTraining.java.java
 	@$(CC)  $(GAME)/Knight.java
 	@$(CC)  $(GAME)/Thief.java
 	@$(CC)  $(GAME)/Wizard.java
