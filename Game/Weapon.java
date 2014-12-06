@@ -97,4 +97,9 @@ public class Weapon extends Item
 		if (user == null || inv == null) return false;
 		return true;
 	}
+
+	public String getDescription ()
+	{
+		return "Weapon ( " + getAttackPts() + " attack pts )";
+	}
 }

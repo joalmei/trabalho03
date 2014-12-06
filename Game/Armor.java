@@ -105,4 +105,9 @@ public class Armor extends Item
 
 		return true;
 	}
+
+	public String getDescription ()
+	{
+		return "Armor ( " + getDefensePts() + " defense pts )";
+	}
 }

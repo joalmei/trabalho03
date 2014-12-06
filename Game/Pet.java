@@ -72,4 +72,9 @@ public class Pet implements Attacker, Sellable {
 
 		addAttackPoints(pt.getResult());
 	}
+
+	public String getDescription ()
+	{
+		return "Pet ( " + getAttackPoints() + " attack pts )";
+	}
 }

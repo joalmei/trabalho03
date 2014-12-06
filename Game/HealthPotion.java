@@ -45,4 +45,9 @@ public class HealthPotion extends Potion
 
 		return true;
 	}
+
+	public String getDescription ()
+	{
+		return "HealthPotion" + " ( " + getRestorePts() + " restore pts )";
+	}
 }

@@ -45,4 +45,9 @@ public class ManaPotion extends Potion
 
 		return true;
 	}
+
+	public String getDescription ()
+	{
+		return "ManaPotion" + " ( " + getRestorePts() + " restore pts )";
+	}
 }
