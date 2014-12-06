@@ -20,30 +20,21 @@ package Game;
 
 // Obs: O nome da classe foi alterado de Character para GameCharacter para evitar ambiguidades
 // em relação à classe Character do package java.lang, default da linguagem!
-public class GameCharacter implements Attacker {
+public abstract class GameCharacter implements Attacker {
 
 	/*** Constantes definidas! ***/
 
-	/*  Valor constante para sinalizar que um ataque foi MISS  */
-	private static final int ATTACK_MISS = 0;
-
-	/*  Valor constante para sinalizar que um ataque foi CRITICAL  */
-	private static final int ATTACK_CRITICAL = 1;
-
-	/*  Valor constante para sinalizar que um ataque ocorreu normalmente  */
-	private static final int ATTACK_NORMAL = 2;
-
 	/*  Valor constante para o valor mínimo da soma entre as caracteristicas do personagem  */
-	private static final int MIN_CHARACTERIZATION = 4;
+	protected static final int MIN_CHARACTERIZATION = 4;
 
 	/*  Valor constante para o máximo da soma entre as caracteristicas do personagem  */
-	private static final int MAX_CHARACTERIZATION = 100;
+	protected static final int MAX_CHARACTERIZATION = 100;
 
 	/*  Valor constante mínimo de XP que um Personagem pode possuir  */
-	private static final int MIN_XP = 1;
+	protected static final int MIN_XP = 1;
 
 	/*  Valor constante máximo de XP que um Personagem pode possuir  */
-	private static final int MAX_XP = 100;
+	protected static final int MAX_XP = 100;
 
 
 
@@ -446,4 +437,6 @@ public class GameCharacter implements Attacker {
 
 		return ATTACK_NORMAL;
 	}
+
+	public abstract void train ();
 }
