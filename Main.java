@@ -46,7 +46,7 @@ public class Main {
 
 		do
 		{
-			System.out.print( "\nSelect Option: " );
+			System.out.show( "\nSelect Option: " );
 			
 			do
 			{
@@ -60,22 +60,12 @@ public class Main {
 				createItem (game);
 			else if (option.equals("new team"))
 				createTeam (game);
-			else if (option.equals("char to team"))
-				charToTeam (game);
-			else if (option.equals("print teams"))
-				printTeams (game);
-			else if (option.equals("print chars"))
-				printChars(game);
-			else if (option.equals("power up"))
-				powerUp (game);
-			else if (option.equals("print inventory"))
-				printInventory(game);
+			else if (option.equals("char join team"))
+				charJoinTeam (game);
 			else if (option.equals("equip char"))
-				char_equipItem (game);
+				charEquipItem (game);
 			else if (option.equals("char use item"))
 				charUseItem (game);
-			else if (option.equals("print items"))
-				printItems(game);
 			else if (option.equals("char wins item"))
 				charWinsItem(game);
 			else if (option.equals("char attk"))
@@ -84,9 +74,17 @@ public class Main {
 				teamAttackTeam(game);
 			else if (option.equals("show opts"))
 				showOptions();
+			else if (option.equals("show teams"))
+				showTeams (game);
+			else if (option.equals("show chars"))
+				showChars(game);
+			else if (option.equals("show items"))
+				showItems(game);
+			else if (option.equals("show inventory"))
+				showInventory(game);
 			else if (!option.equals("exit"))
 			{
-				System.out.print( "INVALID OPTION!!\nTry one of these:\n" );
+				System.out.show( "INVALID OPTION!!\nTry one of these:\n" );
 				showOptions();
 			}
 
@@ -95,7 +93,7 @@ public class Main {
 
 	public static void createChar (Game game)
 	{
-
+		
 	}
 
 	public static void createItem (Game game)
@@ -108,17 +106,17 @@ public class Main {
 
 	}
 
-	public static void charToTeam (Game game)
+	public static void charJoinTeam (Game game)
 	{
 
 	}
 
-	public static void printTeams (Game game)
+	public static void showTeams (Game game)
 	{
 
 	}
 
-	public static void printChars(Game game)
+	public static void showChars(Game game)
 	{
 
 	}
@@ -128,12 +126,7 @@ public class Main {
 
 	}
 
-	public static void printInventory(Game game)
-	{
-
-	}
-
-	public static void char_equipItem (Game game)
+	public static void charEquipItem (Game game)
 	{
 
 	}
@@ -143,7 +136,7 @@ public class Main {
 
 	}
 
-	public static void printItems(Game game)
+	public static void showItems(Game game)
 	{
 
 	}
@@ -165,7 +158,22 @@ public class Main {
 	
 	public static void showOptions()
 	{
-
+		System.out.print( "\nnew char 		: create char\n" +
+		"new item 		: create item\n" +
+		"new team 		: creat team\n" +
+		"char to team 		: include a character in a team\n" +
+		"power up 		: add char XP\n" + 
+		"equip char 		: equip char with an item at his/her inventory\n" +
+		"char use item 		: use char's item in his/her inventory\n" +
+		"char wins item 		: char <- item\n" + 
+		"char attk 		: char 1 attack char 2\n" +
+		"team battle 		: make 2 teams BATTLE!\n" +
+		"show opts 		: show options\n" + 
+		"show teams 		: show all the teams in the game\n" +
+		"show chars 		: show chars\n" + 
+		"show items 		: show items\n" + 
+		"show inventory 	: show inventory\n" +
+		"exit 			: exit\n" );
 	}
-	
+
 }

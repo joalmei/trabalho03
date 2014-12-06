@@ -215,7 +215,7 @@ public class Game
 		teamBattle(0,1);
 	}
 
-	public boolean exitTeam (String ch, String tm)
+	public void exitTeam (String ch, String tm) throws IllegalArgumentException
 	{
 		int tmId = teamId(tm);
 
@@ -225,7 +225,7 @@ public class Game
 		return teams.get(tmId).removeChar(ch);
 	}
 
-	public boolean teamBattle (String team1, String team2)
+	public void teamBattle (String team1, String team2) throws IllegalArgumentException
 	{
 		int tm1 = teamId(team1);
 		int tm2 = teamId(team2);
@@ -236,7 +236,7 @@ public class Game
 		return teamBattle (tm1, tm2);
 	}
 
-	private boolean teamBattle(int team1, int team2)
+	private void teamBattle(int team1, int team2) throws IllegalArgumentException
 	{
 		if (Utils.rnd(0,1) < 0.5)
 		{
@@ -279,7 +279,7 @@ public class Game
 	}
 
 
-	public boolean charAttack (String ch1, String ch2)
+	public void charAttack (String ch1, String ch2) throws IllegalArgumentException
 	{
 		int c1,c2;
 		c1 = charId(ch1);
@@ -291,7 +291,7 @@ public class Game
 		return charAttack(c1,c2);
 	}
 
-	private boolean charAttack (int ch1, int ch2)
+	private void charAttack (int ch1, int ch2) throws IllegalArgumentException
 	{
 		if (ch1 < 0 || ch2 < 0 || ch1 >= chars.size() || ch2 >= chars.size())
 		{
@@ -312,11 +312,11 @@ public class Game
 
 
 	//TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!
-	public void joinTeam (String ch, String tm)
+	public void joinTeam (String ch, String tm) throws IllegalArgumentException
 	{ ; }
 
 
-	public boolean winItem (String ch, String it)
+	public void winItem (String ch, String it) throws IllegalArgumentException
 	{
 		int c = charId(ch);
 		int i = itemId(it);
@@ -328,7 +328,7 @@ public class Game
 	}
 
 
-	private boolean winItem (int ch, int it)
+	private void winItem (int ch, int it) throws IllegalArgumentException
 	{
 		if (ch < 0 || ch >= chars.size() || it < 0 || it >= items.size())
 			return false;
@@ -340,7 +340,7 @@ public class Game
 	}
 
 
-	public boolean useItem (String ch, String it)
+	public void useItem (String ch, String it) throws IllegalArgumentException
 	{
 		int c = charId (ch);
 
@@ -351,7 +351,7 @@ public class Game
 	}
 
 	
-	public boolean equipItem (String ch, String it)
+	public void equipItem (String ch, String it) throws IllegalArgumentException
 	{
 		int c = charId (ch);
 
@@ -362,7 +362,7 @@ public class Game
 	}
 
 
-	public boolean addChar (GameCharacter ch)
+	public void addChar (GameCharacter ch) throws NullPointerException
 	{
 		if (ch == null)
 			return false;
@@ -373,7 +373,7 @@ public class Game
 		return true;
 	}
 
-	public boolean addTeam (Team tm)
+	public void addTeam (Team tm) throws NullPointerException
 	{
 		if (tm == null)
 			return false;
@@ -384,7 +384,7 @@ public class Game
 		return true;
 	}
 
-	public boolean addItem (Item it)
+	public void addItem (Item it) throws NullPointerException
 	{
 		if (it == null)
 			return false;
@@ -396,7 +396,7 @@ public class Game
 	}
 
 
-	public boolean removeChar (String ch)
+	public void removeChar (String ch) throws IllegalArgumentException
 	{
 		int chId = charId (ch);
 
@@ -406,14 +406,16 @@ public class Game
 		for (int i = 0; i < teams.size() && teams.get(i).removeChar(ch) != false; i++);
 
 		chars.remove(chId);
+
+		return true;
 	}
 
 	///////////////////////// TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	public boolean removeTeam (String tm)
-	{;}
+	public void removeTeam (String tm) throws IllegalArgumentException
+	{return true;}
 
-	public boolean removeItem (String it)
-	{;}
+	public void removeItem (String it) throws IllegalArgumentException
+	{return true;}
 
 
 	public void showCharacters ()
@@ -472,19 +474,21 @@ public class Game
 		}
 	}
 
-	private int teamId (String tm)
+	private int teamId (String tm) throws IllegalArgumentException
 	{
+		return 0;
 		///////////////////////////////////// TO DOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
-	private int charId (String ch)
+	private int charId (String ch) throws IllegalArgumentException
 	{
+		return 0;
 		///////////////////////////////////// TO DOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
-	private int itemId (String it)
+	private int itemId (String it) throws IllegalArgumentException
 	{
-
+		return 0;
 	}
 
 
@@ -881,26 +885,5 @@ public class Game
 			System.out.print( "INVALID CHARACTER!!\n" );
 	}
 */
-
-
-/*	private static void show_options ()
-	{
-		System.out.print( "\nnew char 		: create char\n" +
-		"new item 		: create item\n" +
-		"new team 		: creat team\n" +
-		"char to team 		: include a character in a team\n" +
-		"print teams 		: show all the teams in the game\n" +
-		"print chars 		: print chars\n" + 
-		"power up 		: add char XP\n" + 
-		"print inventory 	: print inventory\n" +
-		"equip char 		: equip char with an item at his/her inventory\n" +
-		"char use item 		: use char's item in his/her inventory\n" +
-		"print items 		: print items\n" + 
-		"char wins item 		: char <- item\n" + 
-		"char attk 		: char 1 attack char 2\n" +
-		"team battle 		: make 2 teams BATTLE!\n" +
-		"show opts 		: show options\n" + 
-		"exit 			: exit\n" );
-	}*/
 
 }
