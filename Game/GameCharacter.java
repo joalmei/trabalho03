@@ -277,6 +277,11 @@ public abstract class GameCharacter implements Attacker {
 		return this.constitution;
 	}
 
+	public Pet getPet ()
+	{
+		return pet;
+	}
+
 
 
 
