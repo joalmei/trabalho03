@@ -141,7 +141,7 @@ public class Inventory {
 		Item it = null;
 
 		for (int i = 0; i < this.items.size(); ++i)
-			if (this.items.get(i).first.getName().equals(iname) && !this.items.get(i).isEquipped())
+			if (this.items.get(i).first.getName().equals(iname) && !isEquipped(i))
 			{
 				it = items.get(i).first;
 				this.items.remove(i);
@@ -154,7 +154,7 @@ public class Inventory {
 	/*  Remove do Inventário o Item na posição 'pos' APENAS SE ESTE NÃO ESTÁ EQUIPADO!  */
 	public Item removeItem(int pos)
 	{
-		if (pos < 0 || pos >= this.items.size() || !items.get(pos).isEquipped())
+		if (pos < 0 || pos >= this.items.size() || !isEquipped(i))
 			return null;
 		else
 		{
