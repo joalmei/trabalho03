@@ -132,7 +132,7 @@ public class Inventory {
 
 	/***  Métodos Remoção  ***/
 
-	/*  Remove do Inventário o Item de nome 'iname'  */
+	/*  Remove do Inventário o Item de nome 'iname' APENAS SE ESTE NÃO ESTÁ EQUIPADO!!  */
 	public Item removeItem(String iname)
 	{
 		// Busca a primeira ocorrência do item de nome 'iname'
@@ -141,7 +141,7 @@ public class Inventory {
 		Item it = null;
 
 		for (int i = 0; i < this.items.size(); ++i)
-			if (this.items.get(i).first.getName().equals(iname))
+			if (this.items.get(i).first.getName().equals(iname) && !this.items.get(i).isEquipped())
 			{
 				it = items.get(i).first;
 				this.items.remove(i);
@@ -151,10 +151,10 @@ public class Inventory {
 		return it;
 	}
 
-	/*  Remove do Inventário o Item na posição 'pos'  */
+	/*  Remove do Inventário o Item na posição 'pos' APENAS SE ESTE NÃO ESTÁ EQUIPADO!  */
 	public Item removeItem(int pos)
 	{
-		if (pos < 0 || pos >= this.items.size())
+		if (pos < 0 || pos >= this.items.size() || !items.get(pos).isEquipped())
 			return null;
 		else
 		{
