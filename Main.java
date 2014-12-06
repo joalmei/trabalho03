@@ -250,13 +250,28 @@ public class Main {
 
 	public static void createPet (Game game)
 	{
-		String name;
+		String petname, option;
 
 		System.out.println("Pet's name: ");
 
-		name = readString();
+		petname = readString();
 
-		System.out.println("Do you think he needs a best character friend? ");
+		Pet pet = new Pet (petname);
+
+		game.addPet(pet);
+
+		System.out.println("Do you think he needs a best character friend? (yes/no) :");
+
+		do
+		{
+			option = readString();
+		}while (!option.equals("yes") && !option.equals("no"));
+
+		if (option.equals("yes"))
+		{
+			String charname = readString();
+			game.winPet(charname,petname);
+		}
 
 	}
 

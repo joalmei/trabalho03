@@ -408,10 +408,10 @@ public class Game
 
 	public void winPet (String ch, String pet) throws IllegalArgumentException
 	{
-		int c = charID(ch);
-		int p = petID(pet);
+		int c = charId(ch);
+		int p = petId(pet);
 
-		winPet(c, pet);
+		winPet(c, p);
 	}
 
 	public void winPet (int ch, int pet) throws IllegalArgumentException
@@ -525,7 +525,7 @@ public class Game
 
 	public void removePet (String pet) throws IllegalArgumentException
 	{
-		int p = petID(pet);
+		int p = petId(pet);
 
 		removePet(p);
 	}
@@ -659,7 +659,7 @@ public class Game
 		return itm;
 	}
 
-	private int petID (String pet) throws IllegalArgumentException
+	private int petId (String pet) throws IllegalArgumentException
 	{
 
 		int p = -1;

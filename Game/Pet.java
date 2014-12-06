@@ -19,12 +19,7 @@ public class Pet implements Attacker, Sellable {
 	public void addAttackPoints (int attackPoints)
 	{
 		this.attackPoints = Math.max(MIN_ATTACK_POINTS, this.attackPoints + attackPoints);
-	}
-
-	public String getName ()
-	{
-		return name;
-	}
+	}	
 
 	public double getPrice ()
 	{
@@ -37,7 +32,7 @@ public class Pet implements Attacker, Sellable {
 	}
 
 	public String getName() {
-		return this.name();
+		return this.name;
 	}
 
 	/*  Implementa um ataque na forma 'this' ataca 'carac'  */
