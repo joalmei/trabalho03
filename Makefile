@@ -41,7 +41,7 @@ character:
 	@$(CC)  $(GAME)/Attacker.java
 	@$(CC)  $(GAME)/GameCharacter.java
 	@$(CC)  $(GAME)/Pet.java
-	@$(CC)  $(GAME)/PetTraining.java.java
+	@$(CC)  $(GAME)/PetTraining.java
 	@$(CC)  $(GAME)/Knight.java
 	@$(CC)  $(GAME)/Thief.java
 	@$(CC)  $(GAME)/Wizard.java
