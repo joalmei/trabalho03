@@ -4,16 +4,13 @@
 #                          Turma 2014/2 - Engenharia de Computação                         #
 #                                  Professor: Moacir Ponti                                 #
 #------------------------------------------------------------------------------------------#
-#                                        Trabalho 2                                        #
+#                                        Trabalho 3                                        #
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
-#                      Aluno: João Victor Almeida de Aguiar :: 8503986                     #
+#                     Alunos: João Victor Almeida de Aguiar :: 8503986                     #
+#                           Cassiano Zaghi de Oliveira :: 7987400                          #
 ############################################################################################
 
-##________________________________________________________________________________________##
-#===========================================================================================
-#||                                    Makefile (JAVA)                                    ||
-#===========================================================================================
-##----------------------------------------------------------------------------------------##
+
 
 CC = javac
 GAME = Game
@@ -36,8 +33,9 @@ items:
 	@$(CC)	$(GAME)/RageMode.java
 	@$(CC)	$(GAME)/RagePotion.java
 inventory:
-	@echo 'Pré-Compilando Inventário...'
+	@echo 'Pré-Compilando Inventário, Jogo e Lojas...'
 	@$(CC)  $(GAME)/Inventory.java
+	@$(CC) ./Game.java
 shop:
 	@$(CC)	$(GAME)/Sellable.java
 	@$(CC)	$(GAME)/Shop.java
@@ -70,4 +68,4 @@ run:
 
 # Apaga todos os arquivos compilados gerados
 clean:
-	@rm $(GAME)/*.class $(EXEC).class
+	@rm $(GAME)/*.class ./*.class

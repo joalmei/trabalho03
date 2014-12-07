@@ -4,21 +4,19 @@
 *                          Turma 2014/2 - Engenharia de Computação                         *
 *                                  Professor: Moacir Ponti                                 *
 *------------------------------------------------------------------------------------------*
-*                                        Trabalho 1                                        *
+*                                        Trabalho 3                                        *
 *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
-*                      Aluno: João Victor Almeida de Aguiar :: 8503986                     *
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
 ********************************************************************************************/
 
-/*________________________________________________________________________________________*\
-============================================================================================
-||         Programa de teste utilizando as classes Item e GameCharacter    (JAVA)         ||
-============================================================================================
-\*----------------------------------------------------------------------------------------*/
 
-// Nota importante !!:
+// Notas iniciais:
 //
 // Pela necessidade de se trabalhar com alterações nos atributos de um Character gerados pelo uso de Items, foi necessário
-// que, na classe Item, este tivesse conhecimento da classe Character.
+// que, na classe Item, este tivesse conhecimento da classe Character. Além disso, as Threads PetTraining e RageMode precisam
+// atualizar os dados de Character (e Pet) em tempo dinâmico, dependente da Thread, portanto esses também necessitam de referências
+// para esses.
 //
 // Nesse sentido, para que fosse possível este conhecimento "circular", é necessário que o arquivo da classe Item consiga
 // ter acesso ao arquivo da classe Character, e como a classe Character possui um Inventário, essa precisa ter conhecimento
@@ -30,6 +28,14 @@
 //
 // Este pacote possui todas as classes relativas ao jogo, as quais são utilizadas pela main, que implementa um teste do uso
 // desse pacote.
+
+// TODAS as opções foram modularizadas de forma tal que o método 'main' não se tornasse extenso demais,
+// o que tornaria o código pouco legível. Além disso, a implementação do Jogo em sí foi realizada em uma classe Game
+// que encapsula as decições de projeto tomadas para este jogo, e a classe Main apenas utiliza as definições tomadas
+// nessa classe
+
+// Além disso, diversos métodos estáticos úteis para a implementação geral deste código estão na classe Utils
+
 
 import Game.*;
 
@@ -44,8 +50,11 @@ public class Main {
 
 		String option;
 
-		showOptions();
+		showOptions();	//apresenta as opções
 
+
+		// Do - while funciona como um menu, que funciona com o jogo até que este finalize sua execução
+		// com o último comando "exit" de saída.
 		do
 		{
 			System.out.print( "\nSelect Option: " );
@@ -95,12 +104,13 @@ public class Main {
 
 		}while (!option.equals("exit"));
 
+		// Deixa este aviso, caso exista alguma thread em execução ainda!
 		System.out.println("Please, wait for the training and rage threads to finish the program!");
 	}
 
+	/*  Cria um novo personagem para o jogo  */
 	public static void createChar (Game game)
-	{	
-
+	{
 		String name, type;
 		int special;
 		
@@ -144,6 +154,7 @@ public class Main {
 		}while(type.equals("NO"));
 	}
 
+	/*  Cria um novo item para a loja de items do jogo  */
 	public static void createItem (Game game)
 	{
 		String name, type;
@@ -215,6 +226,7 @@ public class Main {
 			System.out.print( "NOT VALID!\n" );
 	}
 
+	/*  Cria um novo time para o jogo  */
 	public static void createTeam (Game game)
 	{
 		String name;
@@ -254,6 +266,7 @@ public class Main {
 		game.addTeam(new Team(name, cl));
 	}
 
+	/*  Cria um novo pet para a loja de pets do jogo */
 	public static void createPet (Game game)
 	{
 		String petname, option;
@@ -266,23 +279,9 @@ public class Main {
 
 		game.addPet(pet);
 
-		/*
-		System.out.println("Do you think he needs a best character friend? (yes/no) :");
-
-		do
-		{
-			option = Utils.readString();
-		}while (!option.equals("yes") && !option.equals("no"));
-
-		if (option.equals("yes"))
-		{
-			String charname = Utils.readString();
-			game.winPet(charname,petname);
-		}
-
-		*/
 	}
 
+	/*  Faz um personagem se tornar parte de um time  */
 	public static void charJoinTeam (Game game)
 	{
 		String teamID;
@@ -302,16 +301,19 @@ public class Main {
 		}
 	}
 
+	/*  Apresenta todos os times do jogo  */
 	public static void showTeams (Game game)
 	{
 		game.showTeams();
 	}
 
+	/*  Apresenta todos os personagens do jogo  */
 	public static void showChars(Game game)
 	{
 		game.showCharacters();
 	}
 
+	/*  Faz um personagem equipar um item  */
 	public static void charEquipItem (Game game)
 	{
 		String input, name;
@@ -351,6 +353,7 @@ public class Main {
 		}
 	}
 
+	/*  Faz um personagem usar um item  */
 	public static void charUseItem (Game game)
 	{
 		String input, name;
@@ -391,13 +394,9 @@ public class Main {
 		}
 
 	}
-
-	/*public static void showItems(Game game)
-	{
-		game.showItems();
-	}
-	*/
 	
+
+	/*  Apresenta o inventário de um personagem   */
 	public static void showInventory(Game game)
 	{	
 		String name;
@@ -415,43 +414,8 @@ public class Main {
 
 	}
 
-/*
-	public static void charWinsItem(Game game)
-	{
-		String input, name;
-		System.out.print( "Print character list? " );
-		
-		input = Utils.readString();
 
-		input = input.toLowerCase();
-		if (input.equals("yes"))
-			game.showCharacters();
-
-		System.out.print( "Char's name: " );
-		
-		name = Utils.readString();
-
-		String it;
-
-		System.out.print( "Item's name: " );
-
-		//Evitar o FLUSH!
-		it = Utils.readString();
-
-
-		try {
-			game.winItem(name, it);
-		}
-		catch (IllegalArgumentException e) {
-			System.err.println(e.getMessage());
-		}
-		catch (FullInventoryException e) {
-			System.err.println(e.getMessage());
-		}
-
-	}
-*/
-
+	/*  Faz um personagem entrar na loja de items do jogo  */
 	public static void enterItemShop(Game game)
 	{
 		String name;
@@ -474,6 +438,7 @@ public class Main {
 		}
 	}
 
+	/*  Faz um personagem entrar na loja de pets do jogo  */
 	public static void enterPetShop(Game game)
 	{
 		String name;
@@ -496,6 +461,7 @@ public class Main {
 		}
 	}
 	
+	/*  Realiza um ataque entre personagems  */
 	public static void charAttack(Game game)
 	{	
 		String name, enemy;
@@ -516,7 +482,8 @@ public class Main {
 		}
 
 	}
-	
+
+	/*  Realiza a lita entre dois times  */
 	public static void teamAttackTeam(Game game)
 	{
 		String t1,t2;
@@ -537,6 +504,7 @@ public class Main {
 
 	}
 
+	/*  Realiza o treino de um Pet ou um personagem  */
 	public static void train (Game game) 
 	{
 		String name, type;
@@ -573,7 +541,8 @@ public class Main {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
+	/*  Apreseta os dados atuais do personagem, junto aos dados de seu pet  */
 	public static void status (Game game)
 	{
 		String ch;
@@ -585,16 +554,17 @@ public class Main {
 		game.charStatus(ch);
 	}
 
+	/*  Apresenta as opções disponíveis no menu (main)  */
 	public static void showOptions()
 	{
 		System.out.print( "\nnew char 		: create char\n" +
 		"new item 		: create item\n" +
 		"new team 		: creat team\n" +
 		"new pet 		: creat pet\n" +
-		"char to team 		: include a character in a team\n" +
-		"power up 		: add char XP\n" + 
+		"char join team 		: include a character in a team\n" +
 		"equip char 		: equip char with an item at his/her inventory\n" +
 		"train 			: train a char or a pet's char\n" +
+		"char's status 		: show the data from the char and it's pet\n"+
 		"char use item 		: use char's item in his/her inventory\n" +
 		"char attk 		: char 1 attack char 2\n" +
 		"team battle 		: make 2 teams BATTLE!\n" +

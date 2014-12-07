@@ -1,29 +1,48 @@
+/*******************************************************************************************
+*                         SCC 604 - Programacao Orientada a Objetos                        *
+*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
+*                          Turma 2014/2 - Engenharia de Computação                         *
+*                                  Professor: Moacir Ponti                                 *
+*------------------------------------------------------------------------------------------*
+*                                        Trabalho 3                                        *
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
+********************************************************************************************/
+
+
 package Game;
 
 import java.util.ArrayList;
 
+/*  Classe Shop : Define um modelo genérico de loja no jogo, que comercializa qualquer item 
+	Sellable  */
 public abstract class Shop <T extends Sellable>
 {
-	private String name;
+	private String name;	//Nome da loja
 
-	protected ArrayList<T> products;
+	protected ArrayList<T> products;	//Produtos da Loja
 
+	/*  Construtor : Recebe o nome da loja  */
 	public Shop (String name)
 	{
 		setName(name);
 		products = new ArrayList<T> ();
 	}
 
+	/*  Setter do nome da loja  */
 	public void setName (String name)
 	{
 		this.name = name;
 	}
 
+	/*  Getter do nome da loja  */
 	public String getName ()
 	{
 		return this.name;
 	}
 	
+	/*  Mostra os produtos disponíveis na loja  */
 	public void showShop ()
 	{
 		if (products.size() == 0)
@@ -42,16 +61,20 @@ public abstract class Shop <T extends Sellable>
 		}
 	}
 
+	/*  Implementação da transação de venda de um produto da loja para um character  */
 	public abstract void buy (String name, GameCharacter ch);
 
+	/*  Implementação da transação de venda de um produto do character para a loja  */
 	public abstract double sell (String name, GameCharacter ch);
 
+	/*  Implementação de uma venda anônima (apenas retorna o valor da venda)  */
 	public double sell (T product)
 	{
 		products.add(product);
 		return product.getPrice();
 	}
 
+	/*  Busca o Id do produto na ArrayList de produtos, e retorna-o. Caso não exista, lança IllegalArgumentException  */
 	protected int productId (String prod) throws IllegalArgumentException
 	{
 		int nprod = -1;
@@ -71,6 +94,7 @@ public abstract class Shop <T extends Sellable>
 		return nprod;
 	}
 
+	/*  Apresenta as opções de uso da loja no método enterShop  */
 	private void showOpts ()
 	{
 		System.out.print("buy:				buy an item\n" + 
@@ -82,6 +106,7 @@ public abstract class Shop <T extends Sellable>
 						"exit:				exit shop\n");
 	}
 
+	/*  Implementa a entrada de um character na loja, e as transações que ele pode realizar nesta  */
 	public void enterShop (GameCharacter ch)
 	{
 		System.out.println("\nWelcome to " + getName() + " !");

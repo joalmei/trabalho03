@@ -1,12 +1,28 @@
+/*******************************************************************************************
+*                         SCC 604 - Programacao Orientada a Objetos                        *
+*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
+*                          Turma 2014/2 - Engenharia de Computação                         *
+*                                  Professor: Moacir Ponti                                 *
+*------------------------------------------------------------------------------------------*
+*                                        Trabalho 3                                        *
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
+********************************************************************************************/
+
+
 package Game;
 
+/*  Classe Pet, é um companheiro para um GameCharacter que é tanto um item comprável em loja (Sellabe)
+	como tem poder de ataque (Attacker). Este tem uma vantagem em frente ao GameCharacter, uma vez que
+	este pode passar muito tempo em background treinando!  */
 public class Pet implements Attacker, Sellable {
 	private static final int MIN_ATTACK_POINTS = 1;
 
 	/*Atributos*/
-	private String name;
-	private int attackPoints;
-	private PetTraining pt;
+	private String name;		// nome do pet
+	private int attackPoints;	// pontos de ataque do pet
+	private PetTraining pt;		// thread de treinamento do pet
 
 	/*Construtor*/
 	public Pet (String name)

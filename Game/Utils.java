@@ -4,16 +4,11 @@
 *                          Turma 2014/2 - Engenharia de Computação                         *
 *                                  Professor: Moacir Ponti                                 *
 *------------------------------------------------------------------------------------------*
-*                                        Trabalho 2                                        *
+*                                        Trabalho 3                                        *
 *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
-*                      Aluno: João Victor Almeida de Aguiar :: 8503986                     *
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
 ********************************************************************************************/
-
-/*________________________________________________________________________________________*\
-============================================================================================
-||                Arquivo de Implementação da Classe Auxiliar Utils    (JAVA)             ||
-============================================================================================
-\*----------------------------------------------------------------------------------------*/
 
 
 package Game;
@@ -36,7 +31,7 @@ public class Utils
 		return rd.nextFloat()*range + min;
 	}
 
-	/*  Lê Strings, resolvendo o probela de qualquer   */
+	/*  Lê Strings, resolvendo o problema de qualquer buffer que exista   */
 	public static String readString ()
 	{
 		String toRead;

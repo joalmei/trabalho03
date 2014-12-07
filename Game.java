@@ -1,3 +1,16 @@
+/*******************************************************************************************
+*                         SCC 604 - Programacao Orientada a Objetos                        *
+*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
+*                          Turma 2014/2 - Engenharia de Computação                         *
+*                                  Professor: Moacir Ponti                                 *
+*------------------------------------------------------------------------------------------*
+*                                        Trabalho 3                                        *
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
+********************************************************************************************/
+
+
 import Game.*;
 
 import java.util.*;
@@ -15,11 +28,14 @@ public class Game
 	private ItemShop itemShop;
 
 
+	/*  Construtor Padrão: Cria as listas de personagens e times, e as lojas do jogo  */
+	/*  Além disso, cria uma preliminar do jogo, já inserindo vários pesonagens e items nos inventários desses,
+		conferindo que o jogo já inicializa com uma grande quantidade de possibilidades  */
 	public Game()
 	{
 		chars = new ArrayList<GameCharacter> ();
 		teams = new ArrayList<Team> ();
-		petShop = new PetShop ("=^.^= LOJA DE GATIIIIIINHOS!!! =^.^=");
+		petShop = new PetShop ("Miau, au au, etc e tal...");
 		itemShop = new ItemShop ("Amazon Web Store");
 
 		ArrayList<Item> items = new ArrayList<Item> ();
@@ -281,8 +297,20 @@ public class Game
 
 		//Simula uma batalha básica entre os dois times
 		teamBattle(0,1);
+
+		//Cria novos items e pets para as lojas
+		addItem(new Weapon("FISICA!!", 5.0, 8, 10));
+		addItem(new Armor("DELTA", 5.0, 10, 0));
+		addItem(new HealthPotion("Água", 1.0, 10));
+		addItem(new ManaPotion("Suco de Laranja", 4.0, 10));
+		addItem (new RagePotion("MilkShake", 10, 5));
+
+		addPet(new Pet ("gatinho"));
+		addPet(new Pet ("dragão"));
+		addPet(new Pet ("leão"));
 	}
 
+	/*  Faz  um char ch sair do time tm */
 	public void exitTeam (String ch, String tm) throws IllegalArgumentException
 	{
 		int tmId = teamId(tm);
@@ -291,6 +319,7 @@ public class Game
 			throw new IllegalArgumentException ("Personagem não faz parte do Time");
 	}
 
+	/*  Realiza uma batalha entre os times team1 e team2  */
 	public void teamBattle (String team1, String team2) throws IllegalArgumentException
 	{
 		int tm1 = teamId(team1);
@@ -299,11 +328,13 @@ public class Game
 		teamBattle (tm1, tm2);
 	}
 
+	/*  Realiza uma batalha entre os time team1 e team2  */
 	private void teamBattle(int team1, int team2)
 	{
 		if (team1 == team2)
 			System.out.println("REBELION ISN'T ALLOWED! THE TEAMS MUST BE DIFFERENT FOR BATTLE!\n");
 
+		// Escolhe aleatóriamente qual o time que começa
 		if (Utils.rnd(0,1) < 0.5)
 		{
 			int aux = team2;
@@ -311,8 +342,10 @@ public class Game
 			team1 = aux;
 		}
 		
+		// Escolhe aléatóriamente o jogador que começa
 		int p1 = (int) Utils.rnd(0, teams.get(team1).nChars());
 
+		// Inicia a batalha sequencialmente nos dois times
 		for (int i = p1; i < teams.get(team1).nChars(); ++i)
 		{
 			GameCharacter c1 = teams.get(team1).searchChar(i);
@@ -338,11 +371,18 @@ public class Game
 			}
 		}
 
-		teams.get(team1).resolveBattle(teams.get(team2));
+		// Depois de terminadas as batalhas, atualiza os dados dos times!
+		int res = teams.get(team1).resolveBattle(teams.get(team2));
 		teams.get(team2).resolveBattle(teams.get(team1));
+
+		if (res > 0)
+			System.out.println(teams.get(team1).getName() + " won!");
+		else
+			System.out.println(teams.get(team2).getName() + " won!");
 	}
 
 
+	/*  Implementa a luta entre dois GameCharacter ch1 e ch2  */
 	public void charAttack (String ch1, String ch2) throws IllegalArgumentException
 	{
 		int c1,c2;
@@ -352,6 +392,7 @@ public class Game
 		charAttack(c1,c2);
 	}
 
+	/*  Implementa a luta entre dois GameCharacter ch1 e ch2  */
 	private void charAttack (int ch1, int ch2) throws IllegalArgumentException
 	{
 		if (ch1 < 0 || ch2 < 0 || ch1 >= chars.size() || ch2 >= chars.size())
@@ -369,8 +410,7 @@ public class Game
 		}
 	}
 
-
-	//TO DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!
+	/*  Implementa a entrada do character ch no time tm  */
 	public void joinTeam (String ch, String tm) throws IllegalArgumentException
 	{
 		int c = charId (ch);
@@ -379,6 +419,7 @@ public class Game
 		joinTeam (c,t);
 	}
 
+	/*  Implementa a entrada do character ch no time tm  */
 	private void joinTeam (int ch, int tm) throws IllegalArgumentException
 	{
 		if (ch < 0 || ch >= chars.size())
@@ -391,7 +432,7 @@ public class Game
 		teams.get(tm).addChar(chars.get(ch));
 	}
 
-
+	/*  Implementa a compra do item it pelo char ch  */
 	public void buyItem (String ch, String it) throws IllegalArgumentException, FullInventoryException
 	{
 		int c = charId(ch);
@@ -399,20 +440,7 @@ public class Game
 		itemShop.buy(it, chars.get(c));
 	}
 
-
-/*
-	private void winItem (int ch, int it) throws IllegalArgumentException, FullInventoryException
-	{
-		if (ch < 0 || ch >= chars.size())
-			throw new IllegalArgumentException("Personagem não está no Jogo");
-		if (it < 0 || it >= items.size())
-			throw new IllegalArgumentException("Item não está no Jogo");
-
-		chars.get(ch).winItem(items.get(it));
-		items.remove(it);
-	}
-*/
-
+	/*  Implementa a compra do Pet pet pelo char ch  */
 	public void buyPet (String ch, String pet) throws IllegalArgumentException
 	{
 		int c = charId(ch);
@@ -420,20 +448,7 @@ public class Game
 		petShop.buy(pet, chars.get(c));
 	}
 
-/*
-	public void winPet (int ch, int pet) throws IllegalArgumentException
-	{
-		if (ch < 0 || ch >= chars.size())
-			throw new IllegalArgumentException("Personagem não está no Jogo");
-		if (pet < 0 || pet >= pets.size())
-			throw new IllegalArgumentException("Pet não está no Jogo");
-		
-		chars.get(ch).winPet(pets.get(pet));
-		pets.remove(pet);
-	}
-*/
-
-
+	/*  Implementa o uso do item it pelo char ch (que possui este em seu inventário)  */
 	public void useItem (String ch, String it) throws IllegalArgumentException
 	{
 		int c = charId (ch);
@@ -441,7 +456,7 @@ public class Game
 		chars.get(c).useItem(it);
 	}
 
-	
+	/*  Implementa a equipagem do item it  pelo char ch (que possui este em seu inventário)  */
 	public void equipItem (String ch, String it) throws IllegalArgumentException
 	{
 		int c = charId (ch);
@@ -449,7 +464,7 @@ public class Game
 		chars.get(c).equipItem(it);
 	}
 
-
+	/*  Adiciona o GameCharacter ch no jogo  */
 	public void addChar (GameCharacter ch)
 	{
 		if (ch == null)
@@ -458,6 +473,7 @@ public class Game
 		chars.add(ch);
 	}
 
+	/*  Adiciona o time tm no jogo  */
 	public void addTeam (Team tm)
 	{
 		if (tm == null)
@@ -466,6 +482,7 @@ public class Game
 		teams.add(tm);
 	}
 
+	/*  Adiciona o item it na loja de items  */
 	public void addItem (Item it)
 	{
 		if (it == null)
@@ -474,6 +491,7 @@ public class Game
 		itemShop.sell(it);
 	}
 
+	/*  Adiciona o Pet pet na loja de pets  */
 	public void addPet (Pet pet)
 	{
 		if (pet == null)
@@ -482,7 +500,7 @@ public class Game
 		petShop.sell(pet);
 	}
 
-
+	/*  Remove um personagem ch do jogo  */
 	public void removeChar (String ch) throws IllegalArgumentException
 	{
 		int c = charId (ch);
@@ -490,6 +508,7 @@ public class Game
 		removeChar (c);
 	}
 
+	/*  Remove um personagem ch do jogo  */
 	private void removeChar (int ch) throws IllegalArgumentException
 	{
 		if (ch < 0 || ch >= chars.size())
@@ -500,7 +519,7 @@ public class Game
 		chars.remove(ch);
 	}
 
-	///////////////////////// TO DO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	/*  Remove um time tm do jogo  */
 	public void removeTeam (String tm) throws IllegalArgumentException
 	{
 		int t = charId (tm);
@@ -508,6 +527,7 @@ public class Game
 		removeChar (t);
 	}
 
+	/*  Remove um time tm do jogo  */
 	private void removeTeam (int tm) throws IllegalArgumentException
 	{
 		if (tm < 0 || tm >= teams.size())
@@ -515,38 +535,8 @@ public class Game
 
 		teams.remove(tm);
 	}
-/*
-	public void removeItem (String it) throws IllegalArgumentException
-	{
-		int i = itemId(it);
-
-		removeItem(i);
-	}
-
-	public void removeItem (int it) throws IllegalArgumentException
-	{
-		if (it < 0 && it >= items.size())
-			throw new IllegalArgumentException("Item não está disponível!");
-
-		items.remove(it);
-	}
-
-	public void removePet (String pet) throws IllegalArgumentException
-	{
-		int p = petId(pet);
-
-		removePet(p);
-	}
-
-	public void removePet (int pet) throws IllegalArgumentException
-	{
-		if (pet < 0 && pet >= pets.size())
-			throw new IllegalArgumentException("Item não está disponível!");
-
-		pets.remove(pet);
-	}
-*/
-		
+	
+	/*  Apresenta todos os personagens com suas respectivas classes, e seu dados  */
 	public void showCharacters ()
 	{
 		System.out.print( "GameCharacter :\n" );
@@ -567,6 +557,7 @@ public class Game
 		}
 	}
 
+	/*  Apresenta todos os times com suas respectivas características  */
 	public void showTeams ()
 	{
 		System.out.print( "Teams :\n" );
@@ -583,35 +574,15 @@ public class Game
 		}
 	}
 
-/*
-	public void showItems ()
-	{
-		System.out.print( "Items :\n" );
-		for (int i = 0; i < items.size(); ++i)
-		{
-			System.out.print( i + " :: " + items.get(i).getName() + " ~> " );
-
-			if (Utils.isWeapon(items.get(i)))
-				System.out.print( "WEAPON (" + ((Weapon)(items.get(i))).getAttackPts() + " attack points)" );
-			else if (Utils.isArmor(items.get(i)))
-				System.out.print( "ARMOR (" +  ((Armor)(items.get(i))).getDefensePts() + " defense points)" );
-			else if (Utils.isManaPotion(items.get(i)))
-				System.out.print( "MANA POTION (" + ((ManaPotion)(items.get(i))).getRestorePts() + " restore points)" );
-			else if (Utils.isHealthPotion(items.get(i)))
-				System.out.print( "HEALTH POTION (" + ((HealthPotion)(items.get(i))).getRestorePts() + " restore points)" );
-		
-			System.out.print( " :: " + items.get(i).getPrice() + " $\n" );
-		}
-	}
-*/
-
+	/*  Apresenta o inventário do personagem ch do jogo  */
 	public void showInventory(String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
 
 		chars.get(c).printInventory();
-	} 
+	}
 
+	/*  Retorna o ID do time no vetor de times do jogo  */
 	private int teamId (String tm) throws IllegalArgumentException
 	{
 		int t = -1;
@@ -631,6 +602,8 @@ public class Game
 		return t;
 	}
 
+
+	/*  Retorna o ID do personagem no vetor de personagens do jogo  */
 	private int charId (String ch) throws IllegalArgumentException
 	{
 
@@ -651,48 +624,7 @@ public class Game
 		return c;
 	}
 
-/*
-	private int itemId (String it) throws IllegalArgumentException
-	{
-		int itm = -1;
-
-		for (int i = 0; i < items.size(); i++)
-		{
-			if (items.get(i).getName().equals(it))
-			{
-				itm = i;
-				i = items.size();
-			}
-		}
-
-		if (itm == -1)
-			throw new IllegalArgumentException("Item não está no Jogo");
-
-		return itm;
-	}
-
-
-	private int petId (String pet) throws IllegalArgumentException
-	{
-
-		int p = -1;
-
-		for (int i = 0; i < pets.size(); i++)
-		{
-			if (pets.get(i).getName().equals(pet))
-			{
-				p = i;
-				p = pets.size();
-			}
-		}
-
-		if (p == -1)
-			throw new IllegalArgumentException("Pet não está no Jogo");
-
-		return p;
-	}
-*/
-
+	/*  Realiza o treino de um personagem ch  */
 	public void trainChar (String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
@@ -700,6 +632,7 @@ public class Game
 		chars.get(c).train();
 	}
 	
+	/*  Realiza o treino de um Pet de um personagem ch  */
 	public void trainPet (String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
@@ -707,6 +640,7 @@ public class Game
 		chars.get(c).getPet().train();
 	}
 
+	/*  Faz o personagem ch entrar no pet shop  */
 	public void enterPetShop (String ch) throws IllegalArgumentException, FullInventoryException
 	{
 		int c = charId (ch);
@@ -714,6 +648,7 @@ public class Game
 		petShop.enterShop(chars.get(c));
 	}
 
+	/*  Faz o pesonagem ch entrar no item shop  */
 	public void enterItemShop (String ch) throws IllegalArgumentException, FullInventoryException
 	{
 		int c = charId (ch);
@@ -721,6 +656,7 @@ public class Game
 		itemShop.enterShop(chars.get(c));
 	}
 
+	/*  Apresenta o status atual do personagem e de seu pet  */
 	public void charStatus (String ch) throws IllegalArgumentException
 	{
 		int c = charId (ch);

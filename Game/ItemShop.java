@@ -1,12 +1,29 @@
+/*******************************************************************************************
+*                         SCC 604 - Programacao Orientada a Objetos                        *
+*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
+*                          Turma 2014/2 - Engenharia de Computação                         *
+*                                  Professor: Moacir Ponti                                 *
+*------------------------------------------------------------------------------------------*
+*                                        Trabalho 3                                        *
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
+********************************************************************************************/
+
+
 package Game;
 
+/*  Tendo a classe abstrata de definição de uma loja genérica (Shop), podemos tomar uma loja
+	do tipo item, que conhece a forma de transação com um GameCharacter em relação a items   */
 public class ItemShop extends Shop <Item>
 {
+	/*  Construtor : Recebe o nome da loja, e chama o construtor da classe pai, que irá inicializar tudo que é necessário  */
 	public ItemShop (String name)
 	{
 		super (name);
 	}
 
+	/*  Implementação do método sell, que realiza a transação de venda de item do personagem para a loja  */
 	public double sell (String name, GameCharacter ch)
 	{
 		Item item = ch.removeItem(name);
@@ -24,10 +41,12 @@ public class ItemShop extends Shop <Item>
 		return item.getPrice();
 	}
 
+	/*  Implementação do método buy, que realiza a transação de venda de item da loja para o personagem  */
 	public void buy (String name, GameCharacter ch)
 	{
 		int prod = 0;
 
+		// caso o item não exita, o argumento é invalido!
 		try
 		{
 			prod = productId(name);

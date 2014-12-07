@@ -4,16 +4,11 @@
 *                          Turma 2014/2 - Engenharia de Computação                         *
 *                                  Professor: Moacir Ponti                                 *
 *------------------------------------------------------------------------------------------*
-*                                        Trabalho 2                                        *
+*                                        Trabalho 3                                        *
 *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*
-*                      Aluno: João Victor Almeida de Aguiar :: 8503986                     *
+*                      Alunos: João Victor Almeida de Aguiar :: 8503986                    *
+*                           Cassiano Zaghi de Oliveira :: 7987400                          *
 ********************************************************************************************/
-
-/*________________________________________________________________________________________*\
-============================================================================================
-||                Arquivo de Implementação da Classe GameCharacter    (JAVA)              ||
-============================================================================================
-\*----------------------------------------------------------------------------------------*/
 
 
 package Game;
@@ -84,7 +79,8 @@ public abstract class GameCharacter implements Attacker {
 
 	
 	/***  Setters  ***/
-
+	
+	/*  Atualiza o Pet do Character, se ele ele não tiver, apenas  */
 	public void winPet (Pet pet) throws FullInventoryException{
 		
 		if (this.pet != null)
@@ -93,31 +89,16 @@ public abstract class GameCharacter implements Attacker {
 		this.pet = pet;
 	}
 
-	public Pet removePet ()
-	{
-		Pet pt = pet;
-		pet = null;
-		return pt;
-	}
-
-	public double getGold ()
-	{
-		return myitems.getTotalGold();
-	}
-
+	/*  Implementa o gasto de Gold  */
 	public void spendGold (double gold)
 	{
 		myitems.spendGold(gold);
 	}
 
+	/*  Implementa o ganho de Gold  */
 	public void earnGold (double gold)
 	{
 		myitems.earnGold(gold);
-	}
-
-	public Item removeItem (String it)
-	{
-		return myitems.removeItem(it);
 	}
 	
 	/*  Atualiza o valor da força do GameCharacter  */
@@ -214,6 +195,11 @@ public abstract class GameCharacter implements Attacker {
 	/***  Getters  ***/
 
 	/**  Getters Públicos  **/
+
+	public double getGold ()
+	{
+		return myitems.getTotalGold();
+	}
 
 	/*  Retorna o nome do GameCharacter  */
 	public String getName()
@@ -431,6 +417,20 @@ public abstract class GameCharacter implements Attacker {
 	public void unequipItem(String iname) throws IllegalArgumentException
 	{
 		this.myitems.unequipItem(iname, this);
+	}
+
+	/*  Implementa a perda do Pet  */
+	public Pet removePet ()
+	{
+		Pet pt = pet;
+		pet = null;
+		return pt;
+	}
+	
+	/*  Implementa a perda de um Item  */
+	public Item removeItem (String it)
+	{
+		return myitems.removeItem(it);
 	}
 
 
