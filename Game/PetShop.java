@@ -2,11 +2,31 @@ package Game;
 
 public class PetShop extends Shop <Pet>
 {
+	public PetShop (String name)
+	{
+		super (name);
+	}
+
 	public double sell(String name, GameCharacter ch)
-	{	
+	{
 		double price = ch.getPet().getPrice();
 
 		Pet pet = ch.removePet();
+
+		if (!pet.getName().equals(name))
+		{
+			try
+			{
+				ch.winPet(pet);
+			}
+			catch(FullInventoryException e)
+			{
+				System.err.println(e.getMessage());
+			}
+
+			System.out.println(ch.getName() + " doesn't have " + pet.getName() + " as a pet!");
+			return 0;
+		}
 
 		products.add(pet);
 
@@ -21,7 +41,7 @@ public class PetShop extends Shop <Pet>
 
 		if (price > ch.getGold())
 		{
-			System.out.println("Dinheiro insuficiente!");
+			System.out.println("Not enought money!");
 			return;
 		}
 
@@ -32,7 +52,7 @@ public class PetShop extends Shop <Pet>
 		}
 		catch (FullInventoryException e)
 		{
-			System.err.println(e);
+			System.err.println(e.getMessage());
 			return;
 		}
 

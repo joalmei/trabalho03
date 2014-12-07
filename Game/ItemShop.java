@@ -2,11 +2,21 @@ package Game;
 
 public class ItemShop extends Shop <Item>
 {
+	public ItemShop (String name)
+	{
+		super (name);
+	}
+
 	public double sell (String name, GameCharacter ch)
 	{
 		Item item = ch.removeItem(name);
 		
-		return (item == null) ? 0 : item.getPrice();
+		if (item == null)
+			return 0;
+
+		ch.earnGold(item.getPrice());
+
+		return item.getPrice();
 	}
 
 	public void buy (String name, GameCharacter ch)
@@ -27,7 +37,7 @@ public class ItemShop extends Shop <Item>
 		}
 		catch (FullInventoryException e)
 		{
-			System.err.println(e);
+			System.err.println(e.getMessage());
 			return;
 		}
 
