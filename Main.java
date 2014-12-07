@@ -44,6 +44,8 @@ public class Main {
 
 		String option;
 
+		showOptions();
+
 		do
 		{
 			System.out.print( "\nSelect Option: " );
@@ -65,11 +67,11 @@ public class Main {
 				charEquipItem (game);
 			else if (option.equals("train"))
 				train (game);
+			else if (option.equals("char's status"))
+				status (game);
 			else if (option.equals("char use item"))
 				charUseItem (game);
-			//else if (option.equals("char wins item"))
-			//	charWinsItem(game);
-			else if (option.equals("enter items shop"))
+			else if (option.equals("enter item shop"))
 				enterItemShop(game);
 			else if (option.equals("enter pet shop"))
 				enterPetShop(game);
@@ -83,8 +85,6 @@ public class Main {
 				showTeams (game);
 			else if (option.equals("show chars"))
 				showChars(game);
-			//else if (option.equals("show items"))
-			//	showItems(game);
 			else if (option.equals("show inventory"))
 				showInventory(game);
 			else if (!option.equals("exit"))
@@ -94,6 +94,8 @@ public class Main {
 			}
 
 		}while (!option.equals("exit"));
+
+		System.out.println("Please, wait for the training and rage threads to finish the program!");
 	}
 
 	public static void createChar (Game game)
@@ -204,6 +206,8 @@ public class Main {
 				game.addItem(new ManaPotion (name, price, restorepts));
 			else if (ptype.equals("health"))
 				game.addItem(new HealthPotion (name, price, restorepts));
+			else if (ptype.equals ("rage"))
+				game.addItem(new RagePotion (name, price, restorepts));
 			else
 				System.out.print( "NOT VALID!\n" );
 		}
@@ -474,7 +478,7 @@ public class Main {
 	{
 		String name;
 
-		System.out.println ("Which char will enter the shop? ");
+		System.out.print ("Which char will enter the shop? ");
 
 		name = Utils.readString();
 
@@ -570,23 +574,35 @@ public class Main {
 		}
 	}
 	
+	public static void status (Game game)
+	{
+		String ch;
+
+		System.out.print("Which char do you want to check? ");
+
+		ch = Utils.readString();
+
+		game.charStatus(ch);
+	}
+
 	public static void showOptions()
 	{
 		System.out.print( "\nnew char 		: create char\n" +
 		"new item 		: create item\n" +
 		"new team 		: creat team\n" +
+		"new pet 		: creat pet\n" +
 		"char to team 		: include a character in a team\n" +
 		"power up 		: add char XP\n" + 
 		"equip char 		: equip char with an item at his/her inventory\n" +
 		"train 			: train a char or a pet's char\n" +
 		"char use item 		: use char's item in his/her inventory\n" +
-		"char wins item 		: char <- item\n" + 
 		"char attk 		: char 1 attack char 2\n" +
 		"team battle 		: make 2 teams BATTLE!\n" +
+		"enter item shop 	: enter in the items shop\n" +
+		"enter pet shop 		: enter in the pet shop\n" +
 		"show opts 		: show options\n" + 
 		"show teams 		: show all the teams in the game\n" +
 		"show chars 		: show chars\n" + 
-		"show items 		: show items\n" + 
 		"show inventory 		: show inventory\n" +
 		"exit 			: exit\n" );
 	}

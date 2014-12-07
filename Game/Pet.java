@@ -13,7 +13,7 @@ public class Pet implements Attacker, Sellable {
 	{
 		this.name = name;
 		this.attackPoints = MIN_ATTACK_POINTS;
-		pt = new PetTraining (attackPoints, attackPoints/10);
+		pt = new PetTraining (attackPoints, attackPoints/10, this);
 	}
 
 	public void addAttackPoints (int attackPoints)
@@ -61,6 +61,7 @@ public class Pet implements Attacker, Sellable {
 
 		//quando o treinamento em paralelo termina, o pet recebe os devidos benefícios =D
 
+/*
 		try
 		{
 			pt.join();
@@ -71,6 +72,12 @@ public class Pet implements Attacker, Sellable {
 		}
 
 		addAttackPoints(pt.getResult());
+*/
+	}
+
+	public int trainStatus ()
+	{
+		return pt.getStatus();
 	}
 
 	public String getDescription ()

@@ -2,6 +2,7 @@ package Game;
 
 public class PetTraining extends Thread
 {
+	public static final int TRAIN_LAP_TIME = 500;
 	public static final int MIN_TRAIN_TIME = 100;
 	public static final int MIN_HARDNESS = 5;
 
@@ -9,12 +10,16 @@ public class PetTraining extends Thread
 	private int hardness;
 	private int trainTime;
 	private int result;
+	private int it;			//iteration
 
-	public PetTraining (int hardness, int trainTime)
+	private Pet pet;
+
+	public PetTraining (int hardness, int trainTime, Pet pet)
 	{
 		this.hardness = MIN_HARDNESS;
 		this.trainTime = MIN_TRAIN_TIME;
 		this.result = 0;
+		this.pet = pet;
 	}
 
 	@Override
@@ -25,15 +30,21 @@ public class PetTraining extends Thread
 		double train_effect = 1/(MIN_HARDNESS*MIN_TRAIN_TIME*5);
 
 		//TREINA TREINA TREINA TREINA!
-		for (int i = 0; i < trainTime*hardness; i++)
+		for (it = 0; it < trainTime*hardness - 1; it++)
 		{
 			run_result += Utils.rnd(0,train_effect); //RENDIMENTO POR VOLTA É DE 0 A 10
+			try
+			{
+				sleep (TRAIN_LAP_TIME);
+			}
+			catch (InterruptedException e) {;}
+
 		}
 
 		// TENTA DESCANSAR UM POUQUINHO :3
 		try
 		{
-			sleep (trainTime);
+			sleep (trainTime*TRAIN_LAP_TIME/5);
 		}
 		catch (InterruptedException e)
 		{
@@ -44,8 +55,13 @@ public class PetTraining extends Thread
 			}
 		}
 
-		
+		it++;
+
 		result += (int) run_result;
+
+		pet.addAttackPoints(this.getResult());
+
+		it = 0;
 	}
 
 	public void setHardness (int hardness) 
@@ -67,5 +83,11 @@ public class PetTraining extends Thread
 		result = 0;
 
 		return res;
+	}
+
+	// retorna de 0 a 100 % do treinamento!
+	public int getStatus ()
+	{
+		return (it * 100)/(trainTime*hardness);
 	}
 }

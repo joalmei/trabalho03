@@ -18,6 +18,7 @@
 
 package Game;
 
+import java.util.Scanner;
 import java.util.Random;
 
 /*****  Classe que apresenta todas as funções auxiliares à implementação do sistema,
@@ -39,7 +40,9 @@ public class Utils
 	public static String readString ()
 	{
 		String toRead;
-		
+	
+		Scanner s = new Scanner (System.in);
+
 		do
 		{
 			toRead = s.nextLine();
@@ -47,6 +50,19 @@ public class Utils
 
 		return toRead;
 	}
+
+	public static int readInt ()
+	{
+		Scanner s = new Scanner (System.in);
+		return s.nextInt();
+	}
+
+	public static double readDouble ()
+	{
+		Scanner s = new Scanner (System.in);
+		return s.nextDouble();
+	}
+
 	
 	/*  Funções que verificam os tipos apontados pelos ponteiros polimórficos 
 	(de uso exclusivo da main! não fazem parte da implementação pedida do trabalho!) */

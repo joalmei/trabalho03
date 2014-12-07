@@ -85,7 +85,7 @@ public class Game
 		/*  Criação dos Characters de teste, e redistribuição dos items para eles  */
 
 		//Mario
-		chars.add(new Knight("Mario - O Caracterizado", 3));
+		chars.add(new Knight("Mario Olesk", 3));
 		chars.get(0).addXP(3);
 		chars.get(0).setStrenght(4);
 		chars.get(0).setSpeed(3);
@@ -107,7 +107,7 @@ public class Game
 
 
 		//Altafim
-		chars.add(new Wizard("Altafim - O Eletromago", 3));
+		chars.add(new Wizard("Altafim", 3));
 		chars.get(1).addXP(3);
 		chars.get(1).setStrenght(3);
 		chars.get(1).setSpeed(2);
@@ -129,7 +129,7 @@ public class Game
 
 
 		//Max
-		chars.add(new Thief("Max - O Veloz", 4));
+		chars.add(new Thief("Max", 4));
 		chars.get(2).addXP(2);
 		chars.get(2).setStrenght(3);
 		chars.get(2).setSpeed(6);
@@ -151,7 +151,7 @@ public class Game
 
 
 		//Jussara
-		chars.add(new Wizard("Jussara - Att, ", 5));
+		chars.add(new Wizard("Jussara", 5));
 		chars.get(3).addXP(4);
 		chars.get(3).setStrenght(1);
 		chars.get(3).setSpeed(3);
@@ -173,7 +173,7 @@ public class Game
 
 
 		//Daniel
-		chars.add(new Wizard("Daniel - O Smania", 4));
+		chars.add(new Wizard("Daniel", 4));
 		chars.get(4).addXP(3);
 		chars.get(4).setStrenght(3);
 		chars.get(4).setSpeed(4);
@@ -195,7 +195,7 @@ public class Game
 
 
 		//Nolasco
-		chars.add(new Wizard("Nolasco - O Mestre dos Magos", 5));
+		chars.add(new Wizard("Nolasco", 5));
 		chars.get(5).addXP(5);
 		chars.get(5).setStrenght(4);
 		chars.get(5).setSpeed(4);
@@ -217,7 +217,7 @@ public class Game
 
 
 		//Graça
-		chars.add(new Thief("GracaP - O Eletron", 4));
+		chars.add(new Thief("GracaP", 4));
 		chars.get(6).addXP(2);
 		chars.get(6).setStrenght(3);
 		chars.get(6).setSpeed(6);
@@ -239,7 +239,7 @@ public class Game
 
 
 		//Silvana
-		chars.add(new Knight("Silvana - A Salvadora", 5));
+		chars.add(new Knight("Silvana", 5));
 		chars.get(7).addXP(3);
 		chars.get(7).setStrenght(1);
 		chars.get(7).setSpeed(2);
@@ -721,398 +721,28 @@ public class Game
 		itemShop.enterShop(chars.get(c));
 	}
 
-
-/*private static void equipItem (String ch, String it)
+	public void charStatus (String ch) throws IllegalArgumentException
 	{
-		String input;
-		System.out.print( "Print character list? " );
-		
-		do
+		int c = charId (ch);
+
+		GameCharacter charac = chars.get(c);
+
+		System.out.println(charac.getName() + " status:");
+
+		System.out.println("XP:		" + charac.getXP());
+		System.out.println("HP:		" + charac.getHP());
+		System.out.println("MP:		" + charac.getMP());
+		System.out.println("Strenght:	" + charac.getStrenght());
+		System.out.println("Speed:		" + charac.getSpeed());
+		System.out.println("Dexterity:	" + charac.getDexterity());
+		System.out.println("Constitution:	" + charac.getConstitution());
+
+		if (charac.getPet() != null)
 		{
-			input = s.nextLine();
-		}while (input.equals(""));
-
-		input = input.toLowerCase();
-		if (input.equals("yes"))
-			print_chars(chars);
-
-
-		System.out.print( "Print character's inventory? " );
-		
-		do
-		{
-			input = s.nextLine();
-		}while (input.equals(""));
-
-		input = input.toLowerCase();
-		if (input.equals("yes"))
-			print_inventory(chars);
-
-
-		int id;
-		String it;
-
-		System.out.print( "GameCharacter's ID (to equip): " );
-		id = s.nextInt();
-
-		if (id < 0 || id >= chars.size())
-		{
-			System.out.print( "NOT VALID!\n" );
-			return;
+			System.out.println("The pet \'" + charac.getPet().getName() + "\' status:");
+			System.out.println("Attack Points: 	" + charac.getPet().getAttackPoints());
+			System.out.println("Training Status: 	" + charac.getPet().trainStatus() + "%");
 		}
-
-		System.out.print( "Item's name: " );
-
-		//Evitar o FLUSH!
-		do
-		{
-			it = s.nextLine();
-		}while (it.equals(""));
-
-		System.out.print( "The item  was" + (chars.get(id).equipItem(it) ? " equipped!" : "n't equipped!") + "\n" );
 	}
-	*/
-
-/*	private static void useItem (String ch, String it)
-	{
-		String input;
-		System.out.print( "Print character list? " );
-		
-		do
-		{
-			input = s.nextLine();
-		}while(input.equals(""));
-
-		input = input.toLowerCase();
-		if (input.equals("yes"))
-			print_chars(chars);
-
-
-		System.out.print( "Print character's inventory? " );
-		
-		do
-		{
-			input = s.nextLine();
-		}while(input.equals(""));
-
-		input = input.toLowerCase();
-		if (input.equals("yes"))
-			print_inventory(chars);
-
-
-		int id;
-		String it;
-
-		System.out.print( "GameCharacter's ID (to use): " );
-		id = s.nextInt();
-
-		if (id < 0 || id >= chars.size())
-		{
-			System.out.print( "NOT VALID!\n" );
-			return;
-		}
-
-		System.out.print( "Item's name: " );
-
-		//Evitar o FLUSH!
-		do
-		{
-			it = s.nextLine();
-		}while (it.equals(""));
-
-		System.out.print( "The item  was" + (chars.get(id).useItem(it) ? " used!" : "n't used+ ") + "\n" );
-	}
-*/
-
-
-/*	private static void team_attack_team()
-	{
-		int t1,t2;
-
-		if (teams.size() == 1)
-		{
-			System.out.print( "THERE'S NO REBEL IN THIS GAME!! 1 TEAM CAN'T FIGHT ALONE, ALSO! (#teams = 1)\n" );
-			return;
-		}
-
-		do
-		{
-			System.out.print( "team 1 ID: " );
-			t1 = s.nextInt();
-
-			if (t1 < 0 || t1 >= teams.size())
-			{
-				System.out.print( "INVALID TEAM! TAKE THE INTERVAL [" + 0 + " , " + (teams.size()-1) + "]\n" );
-				t1 = -1;
-			}
-		}while (t1 == -1);
-
-		do
-		{
-			System.out.print( "team 2 ID: " );
-			t2 = s.nextInt();
-
-			if (t2 < 0 || t2 >= teams.size())
-			{
-				System.out.print( "INVALID TEAM! TAKE THE INTERVAL [" + 0 + " , " + (teams.size()-1) + "]\n" );
-				t2 = -1;
-			}
-			if (t2 == t1)
-			{
-				System.out.print( "REBELION ISN'T ALLOWED! team 2 MUST BE DIFERENT FROM team 1!\n" );
-				t2 = -1;
-			}
-
-		}while (t2 == -1);
-
-		System.out.print( teams.get(t1).getName() + " vs " + teams.get(t2).getName() + "\n" );
-		System.out.print( "BATTLE!\n" );
-
-		team_battle(t1,t2,teams,chars);
-	}
-*/
-
-
-
-	/***  Funções auxiliares do jogo  ***/
-
-
-	/***  Implementação das funções auxiliares do jogo  ***/
-
-/*
-	private static void create_char ()
-	{
-		String name, type;
-		int special;
-		
-		System.out.print( "Chars's name: " );
-		
-		do
-		{
-			name = s.nextLine();
-		}while(name.equals(""));
-
-		do
-		{
-			System.out.print( "Char's type: " );
-			
-			do
-			{
-				type = s.nextLine();
-			}while(name.equals(""));
-
-			type = type.toLowerCase();
-			if (type.equals("knight"))
-			{
-				System.out.print( "Knight's power: " );
-				special = s.nextInt();
-
-				chars.add(new Knight(name, special));
-			}
-			else if (type.equals("wizard"))
-			{
-				System.out.print( "Wizard's wisdom: " );
-				special = s.nextInt();
-
-				chars.add(new Wizard(name, special));
-			}
-			else if (type.equals("thief"))
-			{
-				System.out.print( "Thief's stealth: " );
-				special = s.nextInt();
-
-				chars.add(new Thief(name, special));
-			}
-			else
-			{
-				System.out.print( "NOT VALID! TRY: Knight, Thief or Wizard!\n" );
-				type = "NO";
-			}
-		}while(type.equals("NO"));
-	}
-*/
-
-/*	private static void create_item ()
-	{
-		String name, type;
-		double price;
-		System.out.print( "Item's name: " );
-		
-		do
-		{
-			name = s.nextLine();
-		}while (name.equals(""));
-
-		System.out.print( "Item's price: " );
-		price = s.nextDouble();
-
-
-		System.out.print( "Item's type: " );
-		
-		do
-		{
-			type = s.nextLine();
-		}while (type.equals(""));
-
-		type = type.toLowerCase();
-
-		if (type.equals("weapon"))
-		{
-			int attackpts;
-			int range;
-
-			System.out.print( "Weapon's Attack Points: " );
-			attackpts = s.nextInt();
-
-			System.out.print( "Weapon's Range: " );
-			range = s.nextInt();
-
-			items.add(new Weapon (name, price, attackpts, range));
-		}
-		else if (type.equals("armor"))
-		{
-			int defensepts;
-			double weight;
-
-			System.out.print( "Armor's Defense Points: " );
-			defensepts = s.nextInt();
-
-			System.out.print( "Armor's Weight: " );
-			weight = s.nextInt();
-
-			items.add(new Armor (name, price, defensepts, weight));
-		}
-		else if (type.equals("potion"))
-		{
-			String ptype;
-			int restorepts;
-
-			System.out.print( "Restore Points: " );
-			restorepts = s.nextInt();
-
-			System.out.print( "Potion Type: " );
-			
-			do
-			{
-				ptype = s.nextLine();
-			}while (ptype.equals(""));
-
-
-			ptype = ptype.toLowerCase();
-			if (ptype.equals("mana"))
-				items.add(new ManaPotion (name, price, restorepts));
-			else if (ptype.equals("health"))
-				items.add(new HealthPotion (name, price, restorepts));
-			else
-				System.out.print( "NOT VALID!\n" );
-		}
-		else
-			System.out.print( "NOT VALID!\n" );
-	}
-*/
-
-	/*  Função que cria um novo time  */
-/*	private static void create_team ()
-	{
-		String name;
-		String color;
-		Color cl = Color.black;
-
-		System.out.print( "Team's name: " );
-		
-		do
-		{
-			name = s.nextLine();
-		}while (name.equals(""));
-
-		do
-		{
-			System.out.print( "Team's color: " );
-			
-			do
-			{
-				color = s.nextLine();
-			}while (color.equals(""));
-
-			color = color.toLowerCase();
-			if (color.equals("blue"))
-				cl = Color.blue;
-			else if (color.equals("red"))
-				cl = Color.red;
-			else if (color.equals("green"))
-				cl = Color.green;
-			else if (color.equals("yellow"))
-				cl = Color.yellow;
-			else if (color.equals("white"))
-				cl = Color.white;
-			else if (color.equals("black"))
-				cl = Color.black;
-			else
-			{
-				System.out.print( "INVALID COLOR, TRY ONE OF THESE: blue, red, green, yellow, white, black\n" );
-				color = "invalid";
-			}
-		}while (color.equals("invalid"));
-
-		teams.add(new Team(name,cl));
-	}
-*/
-
-
-/*
-	private static void char_to_team ()
-	{
-		int teamID;
-		int charID;
-
-		System.out.print( "GameCharacter's ID: " );
-		charID = s.nextInt();
-
-		if (charID < 0  || charID >= chars.size())
-		{
-			System.out.print( "INVALID CHARACTER!\n" );
-			return;
-		}
-
-		System.out.print( "Team's ID: " );
-		teamID = s.nextInt();
-
-		if (teamID < 0 || teamID >=  chars.size())
-		{
-			System.out.print( "INVALID TEAM\n" );
-			return;
-		}
-
-		teams.get(teamID).addChar(chars.get(charID));
-	}
-*/
-
-/*	private static void power_up ()
-	{
-		int charid, pu;
-		System.out.print( "GameCharacter's ID: " );
-		charid = s.nextInt();
-
-		System.out.print( "+ XP: " );
-		pu = s.nextInt();
-
-		if (charid >= 0 && charid < chars.size())
-			chars.get(charid).addXP(pu);
-	}
-*/
-
-/*
-	private static void print_inventory ()
-	{
-		int charid;
-		System.out.print( "GameCharacter's ID: " );
-		charid = s.nextInt();
-
-		if (charid >= 0 && charid < chars.size())
-			chars.get(charid).printInventory();
-		else
-			System.out.print( "INVALID CHARACTER!!\n" );
-	}
-*/
 
 }

@@ -154,7 +154,7 @@ public class Inventory {
 	/*  Remove do Inventário o Item na posição 'pos' APENAS SE ESTE NÃO ESTÁ EQUIPADO!  */
 	public Item removeItem(int pos)
 	{
-		if (pos < 0 || pos >= this.items.size() || !isEquipped(pos))
+		if (pos < 0 || pos >= this.items.size() || isEquipped(pos))
 			return null;
 		else
 		{
@@ -267,14 +267,22 @@ public class Inventory {
 
 		// Busca o primeiro item de nome iname, e utiliza-o
 		for (i = 0; i < this.items.size(); ++i)
-			if (this.items.get(i).first.getName().equals(iname) && isEquipped(i))
-				if (this.items.get(i).first.use(user,this) == false)
+			if (this.items.get(i).first.getName().equals(iname))
+			{
+				if (isEquipped(i))
 				{
-					throw new IllegalArgumentException("Item não pode ser utilizado!");
+					if (this.items.get(i).first.use(user,this) == false)
+					{
+						throw new IllegalArgumentException("Item não pode ser utilizado!");
+					}
+					else
+						return;
 				}
 				else
-					return;
-
+				{
+					throw new IllegalArgumentException("Item não está equipado!");
+				}
+			}
 		throw new IllegalArgumentException("Item não está no Inventário do Personagem!");
 	}
 

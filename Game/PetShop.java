@@ -30,18 +30,29 @@ public class PetShop extends Shop <Pet>
 
 		products.add(pet);
 
+		System.out.println(pet.getName() + " is part of the shop now!");
+
 		return price;
 	}
 
 	public void buy (String name, GameCharacter ch)
 	{
-		int prod = productId(name);
+		int prod = 0;
+		try
+		{
+			prod = productId(name);
+		}
+		catch (IllegalArgumentException e)
+		{
+			System.err.println(e.getMessage());
+			return;
+		}
 
 		double price = products.get(prod).getPrice();
 
 		if (price > ch.getGold())
 		{
-			System.out.println("Not enought money!");
+			System.out.println("Not Enought Money!");
 			return;
 		}
 
@@ -55,6 +66,8 @@ public class PetShop extends Shop <Pet>
 			System.err.println(e.getMessage());
 			return;
 		}
+
+		System.out.println(products.get(prod).getName() + " has a new owner now!");
 
 		/*Personagem paga pelo item*/
 		ch.spendGold(price);

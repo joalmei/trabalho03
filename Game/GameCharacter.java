@@ -77,6 +77,8 @@ public abstract class GameCharacter implements Attacker {
 		this.dexterity = 1;
 		this.constitution = 1;
 		this.pet = null;
+
+		myitems.earnGold(100);
 	}
 
 
@@ -85,8 +87,8 @@ public abstract class GameCharacter implements Attacker {
 
 	public void winPet (Pet pet) throws FullInventoryException{
 		
-		if (this.pet == null)
-			throw new FullInventoryException("Ja possui um pet!");
+		if (this.pet != null)
+			throw new FullInventoryException("Already Has a Pet!");
 
 		this.pet = pet;
 	}
@@ -106,6 +108,11 @@ public abstract class GameCharacter implements Attacker {
 	public void spendGold (double gold)
 	{
 		myitems.spendGold(gold);
+	}
+
+	public void earnGold (double gold)
+	{
+		myitems.earnGold(gold);
 	}
 
 	public Item removeItem (String it)

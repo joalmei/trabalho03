@@ -21,12 +21,17 @@ public class RageMode extends Thread
 		this.rage = Math.min(MAX_RAGE, rage);
 	}
 
+	public void setRaged(GameCharacter raged)
+	{
+		this.raged = raged;
+	}
+
 	public int getRage ()
 	{
 		return rage;
 	}
 
-	public void use ()
+	public void run ()
 	{
 		raged.setStrenght(raged.getStrenght() + rage^2);
 		raged.setSpeed(raged.getSpeed() + rage);
