@@ -11,12 +11,16 @@ public abstract class Shop <T extends Sellable>
 	{
 		products = new ArrayList<T> ();
 	}
-
+	
 	public void showShop ()
 	{
 		for (int i = 0; i < products.size(); ++i)
 		{
-			System.out.println(products.get(i).getDescription());
+			T prod = products.get(i);
+
+			System.out.print("Nome: " + prod.getName() + " ~> ");
+			System.out.print(prod.getName());
+			System.out.println(" :: $" + prod.getPrice());
 		}
 	}
 
