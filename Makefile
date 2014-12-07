@@ -35,14 +35,14 @@ items:
 	@$(CC)  $(GAME)/ManaPotion.java
 	@$(CC)	$(GAME)/RageMode.java
 	@$(CC)	$(GAME)/RagePotion.java
-	@$(CC)	$(GAME)/Shop.java
-	@$(CC)	$(GAME)/PetShop.java
-	@$(CC)	$(GAME)/ItemShop.java
 inventory:
 	@echo 'Pré-Compilando Inventário...'
 	@$(CC)  $(GAME)/Inventory.java
 shop:
 	@$(CC)	$(GAME)/Sellable.java
+	@$(CC)	$(GAME)/Shop.java
+	@$(CC)	$(GAME)/PetShop.java
+	@$(CC)	$(GAME)/ItemShop.java
 character:
 	@echo 'Pré-Compilando as classes de Characters..'
 	@$(CC)  $(GAME)/Attacker.java
