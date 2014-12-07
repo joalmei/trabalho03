@@ -34,6 +34,19 @@ public class Utils
 
 		return rd.nextFloat()*range + min;
 	}
+
+	/*  Lê Strings, resolvendo o probela de qualquer   */
+	public static String readString ()
+	{
+		String toRead;
+		
+		do
+		{
+			toRead = s.nextLine();
+		}while(toRead.equals(""));
+
+		return toRead;
+	}
 	
 	/*  Funções que verificam os tipos apontados pelos ponteiros polimórficos 
 	(de uso exclusivo da main! não fazem parte da implementação pedida do trabalho!) */
