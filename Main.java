@@ -120,7 +120,7 @@ public class Main {
 
 		do
 		{
-			System.out.print( "Char's type: " );
+			System.out.print( "Char's type (knight/wizard/thief): " );
 			
 			type = Utils.readString();
 
@@ -167,7 +167,7 @@ public class Main {
 		price = Utils.readDouble();
 
 
-		System.out.print( "Item's type: " );
+		System.out.print( "Item's type (weapon/armor/potion): " );
 		
 		type = Utils.readString();
 
@@ -207,7 +207,7 @@ public class Main {
 			System.out.print( "Restore Points: " );
 			restorepts = Utils.readInt();
 
-			System.out.print( "Potion Type: " );
+			System.out.print( "Potion Type (mana/health/rage): " );
 			
 			ptype = Utils.readString();
 
@@ -290,7 +290,7 @@ public class Main {
 		System.out.print( "GameCharacter's name: " );
 		charID = Utils.readString();
 
-		System.out.print( "Team's nome: " );
+		System.out.print( "Team's name: " );
 		teamID = Utils.readString();
 
 		try {
