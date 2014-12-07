@@ -83,15 +83,29 @@ public abstract class GameCharacter implements Attacker {
 	
 	/***  Setters  ***/
 
-	public void winPet (Pet pet) {
+	public void winPet (Pet pet) throws FullInventoryException{
+		
+		if (this.pet == null)
+			throw new FullInventoryException("Ja possui um pet!");
+
 		this.pet = pet;
 	}
 
-	public Pet removePet (Pet pet)
+	public Pet removePet ()
 	{
 		Pet pt = pet;
 		pet = null;
 		return pt;
+	}
+
+	public double getGold ()
+	{
+		return myitems.getTotalGold();
+	}
+
+	public void spendGold (double gold)
+	{
+		myitems.spendGold(gold);
 	}
 
 	public Item removeItem (String it)

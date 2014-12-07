@@ -154,7 +154,7 @@ public class Inventory {
 	/*  Remove do Inventário o Item na posição 'pos' APENAS SE ESTE NÃO ESTÁ EQUIPADO!  */
 	public Item removeItem(int pos)
 	{
-		if (pos < 0 || pos >= this.items.size() || !isEquipped(i))
+		if (pos < 0 || pos >= this.items.size() || !isEquipped(pos))
 			return null;
 		else
 		{
