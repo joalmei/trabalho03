@@ -7,17 +7,23 @@ public class Game
 	public static final int INVALID = -1;
 
 	private ArrayList<GameCharacter> chars;
-	private ArrayList<Item> items;
+	//private ArrayList<Item> items;
 	private ArrayList<Team> teams;
-	private ArrayList<Pet> pets;
+	//private ArrayList<Pet> pets;
+
+	private PetShop petShop;
+	private ItemShop itemShop;
 
 
 	public Game()
 	{
 		chars = new ArrayList<GameCharacter> ();
-		items = new ArrayList<Item> ();
 		teams = new ArrayList<Team> ();
-		pets = new ArrayList<Pet> ();
+		petShop = new PetShop ("=^.^= LOJA DE GATIIIIIINHOS!!! =^.^=");
+		itemShop = new ItemShop ("Amazon Web Store");
+
+		ArrayList<Item> items = new ArrayList<Item> ();
+		ArrayList<Pet> pets = new ArrayList<Pet> ();
 
 		/* Dados padrões, para teste preliminar do programa */
 
@@ -95,7 +101,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -117,7 +123,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -139,7 +145,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -161,7 +167,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -183,7 +189,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -205,7 +211,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -227,7 +233,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -249,7 +255,7 @@ public class Game
 			}
 			catch (FullInventoryException e)
 			{
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 
@@ -386,15 +392,15 @@ public class Game
 	}
 
 
-	public void winItem (String ch, String it) throws IllegalArgumentException, FullInventoryException
+	public void buyItem (String ch, String it) throws IllegalArgumentException, FullInventoryException
 	{
 		int c = charId(ch);
-		int i = itemId(it);
 
-		winItem (c, i);
+		itemShop.buy(it, chars.get(c));
 	}
 
 
+/*
 	private void winItem (int ch, int it) throws IllegalArgumentException, FullInventoryException
 	{
 		if (ch < 0 || ch >= chars.size())
@@ -405,15 +411,16 @@ public class Game
 		chars.get(ch).winItem(items.get(it));
 		items.remove(it);
 	}
+*/
 
-	public void winPet (String ch, String pet) throws IllegalArgumentException
+	public void buyPet (String ch, String pet) throws IllegalArgumentException
 	{
 		int c = charId(ch);
-		int p = petId(pet);
 
-		winPet(c, p);
+		petShop.buy(pet, chars.get(c));
 	}
 
+/*
 	public void winPet (int ch, int pet) throws IllegalArgumentException
 	{
 		if (ch < 0 || ch >= chars.size())
@@ -424,6 +431,7 @@ public class Game
 		chars.get(ch).winPet(pets.get(pet));
 		pets.remove(pet);
 	}
+*/
 
 
 	public void useItem (String ch, String it) throws IllegalArgumentException
@@ -463,7 +471,7 @@ public class Game
 		if (it == null)
 			return;
 
-		items.add(it);
+		itemShop.sell(it);
 	}
 
 	public void addPet (Pet pet)
@@ -471,7 +479,7 @@ public class Game
 		if (pet == null)
 			return;
 
-		pets.add(pet);
+		petShop.sell(pet);
 	}
 
 
@@ -507,7 +515,7 @@ public class Game
 
 		teams.remove(tm);
 	}
-
+/*
 	public void removeItem (String it) throws IllegalArgumentException
 	{
 		int i = itemId(it);
@@ -537,6 +545,7 @@ public class Game
 
 		pets.remove(pet);
 	}
+*/
 		
 	public void showCharacters ()
 	{
@@ -574,6 +583,7 @@ public class Game
 		}
 	}
 
+/*
 	public void showItems ()
 	{
 		System.out.print( "Items :\n" );
@@ -593,6 +603,7 @@ public class Game
 			System.out.print( " :: " + items.get(i).getPrice() + " $\n" );
 		}
 	}
+*/
 
 	public void showInventory(String ch) throws IllegalArgumentException
 	{
@@ -640,6 +651,7 @@ public class Game
 		return c;
 	}
 
+/*
 	private int itemId (String it) throws IllegalArgumentException
 	{
 		int itm = -1;
@@ -658,6 +670,7 @@ public class Game
 
 		return itm;
 	}
+
 
 	private int petId (String pet) throws IllegalArgumentException
 	{
@@ -678,6 +691,7 @@ public class Game
 
 		return p;
 	}
+*/
 
 	public void trainChar (String ch) throws IllegalArgumentException
 	{
@@ -691,6 +705,20 @@ public class Game
 		int c = charId(ch);
 
 		chars.get(c).getPet().train();
+	}
+
+	public void enterPetShop (String ch) throws IllegalArgumentException, FullInventoryException
+	{
+		int c = charId (ch);
+
+		petShop.enterShop(chars.get(c));
+	}
+
+	public void enterItemShop (String ch) throws IllegalArgumentException, FullInventoryException
+	{
+		int c = charId (ch);
+
+		itemShop.enterShop(chars.get(c));
 	}
 
 

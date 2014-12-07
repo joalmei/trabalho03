@@ -33,12 +33,10 @@
 
 import Game.*;
 
-import java.util.Scanner;
+
 import java.util.ArrayList;
 
 public class Main {
-	
-	private static Scanner s = new Scanner (System.in);
 
 	public static void main(String[] args)
 	{
@@ -69,8 +67,12 @@ public class Main {
 				train (game);
 			else if (option.equals("char use item"))
 				charUseItem (game);
-			else if (option.equals("char wins item"))
-				charWinsItem(game);
+			//else if (option.equals("char wins item"))
+			//	charWinsItem(game);
+			else if (option.equals("enter items shop"))
+				enterItemShop(game);
+			else if (option.equals("enter pet shop"))
+				enterPetShop(game);
 			else if (option.equals("char attk"))
 				charAttack(game);
 			else if (option.equals("team battle"))
@@ -81,8 +83,8 @@ public class Main {
 				showTeams (game);
 			else if (option.equals("show chars"))
 				showChars(game);
-			else if (option.equals("show items"))
-				showItems(game);
+			//else if (option.equals("show items"))
+			//	showItems(game);
 			else if (option.equals("show inventory"))
 				showInventory(game);
 			else if (!option.equals("exit"))
@@ -114,21 +116,21 @@ public class Main {
 			if (type.equals("knight"))
 			{
 				System.out.print( "Knight's power: " );
-				special = s.nextInt();
+				special = Utils.readInt();
 
 				game.addChar(new Knight(name, special));
 			}
 			else if (type.equals("wizard"))
 			{
 				System.out.print( "Wizard's wisdom: " );
-				special = s.nextInt();
+				special = Utils.readInt();
 
 				game.addChar(new Wizard(name, special));
 			}
 			else if (type.equals("thief"))
 			{
 				System.out.print( "Thief's stealth: " );
-				special = s.nextInt();
+				special = Utils.readInt();
 
 				game.addChar(new Thief(name, special));
 			}
@@ -149,7 +151,7 @@ public class Main {
 		name = Utils.readString();
 
 		System.out.print( "Item's price: " );
-		price = s.nextDouble();
+		price = Utils.readDouble();
 
 
 		System.out.print( "Item's type: " );
@@ -164,10 +166,10 @@ public class Main {
 			int range;
 
 			System.out.print( "Weapon's Attack Points: " );
-			attackpts = s.nextInt();
+			attackpts = Utils.readInt();
 
 			System.out.print( "Weapon's Range: " );
-			range = s.nextInt();
+			range = Utils.readInt();
 
 			game.addItem(new Weapon (name, price, attackpts, range));
 		}
@@ -177,10 +179,10 @@ public class Main {
 			double weight;
 
 			System.out.print( "Armor's Defense Points: " );
-			defensepts = s.nextInt();
+			defensepts = Utils.readInt();
 
 			System.out.print( "Armor's Weight: " );
-			weight = s.nextInt();
+			weight = Utils.readInt();
 
 			game.addItem(new Armor (name, price, defensepts, weight));
 		}
@@ -190,7 +192,7 @@ public class Main {
 			int restorepts;
 
 			System.out.print( "Restore Points: " );
-			restorepts = s.nextInt();
+			restorepts = Utils.readInt();
 
 			System.out.print( "Potion Type: " );
 			
@@ -260,6 +262,7 @@ public class Main {
 
 		game.addPet(pet);
 
+		/*
 		System.out.println("Do you think he needs a best character friend? (yes/no) :");
 
 		do
@@ -273,6 +276,7 @@ public class Main {
 			game.winPet(charname,petname);
 		}
 
+		*/
 	}
 
 	public static void charJoinTeam (Game game)
@@ -281,16 +285,16 @@ public class Main {
 		String charID;
 
 		System.out.print( "GameCharacter's name: " );
-		charID = s.nextLine();
+		charID = Utils.readString();
 
 		System.out.print( "Team's nome: " );
-		teamID = s.nextLine();
+		teamID = Utils.readString();
 
 		try {
 			game.joinTeam(charID, teamID);
 		}
 		catch(IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -339,7 +343,7 @@ public class Main {
 			game.equipItem(name, it);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -379,15 +383,16 @@ public class Main {
 			game.useItem(name, it);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
 	}
 
-	public static void showItems(Game game)
+	/*public static void showItems(Game game)
 	{
 		game.showItems();
 	}
+	*/
 	
 	public static void showInventory(Game game)
 	{	
@@ -401,11 +406,12 @@ public class Main {
 			game.showInventory(name);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
 	}
 
+/*
 	public static void charWinsItem(Game game)
 	{
 		String input, name;
@@ -433,12 +439,57 @@ public class Main {
 			game.winItem(name, it);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 		catch (FullInventoryException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
+	}
+*/
+
+	public static void enterItemShop(Game game)
+	{
+		String name;
+
+		System.out.print ("Which char will enter the shop? ");
+
+		name = Utils.readString();
+
+		try
+		{
+			game.enterItemShop(name);
+		}
+		catch (IllegalArgumentException e)
+		{
+			System.err.println(e.getMessage());
+		}
+		catch (FullInventoryException e)
+		{
+			System.err.println(e.getMessage());
+		}
+	}
+
+	public static void enterPetShop(Game game)
+	{
+		String name;
+
+		System.out.println ("Which char will enter the shop? ");
+
+		name = Utils.readString();
+
+		try
+		{
+			game.enterPetShop(name);
+		}
+		catch (IllegalArgumentException e)
+		{
+			System.err.println(e.getMessage());
+		}
+		catch (FullInventoryException e)
+		{
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public static void charAttack(Game game)
@@ -457,7 +508,7 @@ public class Main {
 			game.charAttack(name, enemy);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
 	}
@@ -477,7 +528,7 @@ public class Main {
 			game.teamBattle(t1, t2);
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
 	}
@@ -515,7 +566,7 @@ public class Main {
 
 		}
 		catch (IllegalArgumentException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 	}
 	
