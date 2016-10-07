@@ -63,7 +63,7 @@ public class Game
 
 
 		// Items da Jussara
-		items.add(new Weapon("Att, Jussara!", 0.0, 4, 4)); //IT'S SUPER EFFECTIVE!
+		items.add(new Weapon("Att, Jussara!", 0.0, 4, 4));                //IT'S SUPER EFFECTIVE!
 		items.add(new Armor(":) :3 *-* <3", 0.0, 6, 4));
 
 

@@ -33,5 +33,5 @@ the problem.
 	$ make run
 
 ++ PLAYING:
-	The game contains some basic commands as new (character, item, tem, pet), manage
+	The game contains some basic commands as new (characters, items, teams, pets), manage
 them, put them to fight, analyse their data and buy pets or items. 
