@@ -636,8 +636,12 @@ public class Game
 	public void trainPet (String ch) throws IllegalArgumentException
 	{
 		int c = charId(ch);
+		Pet pet = chars.get(c).getPet();
 
-		chars.get(c).getPet().train();
+		if (pet == null)
+			System.out.println("Personagem não tem um pet! :'(\n");
+		else
+			pet.train();
 	}
 
 	/*  Faz o personagem ch entrar no pet shop  */
